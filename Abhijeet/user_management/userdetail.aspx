@@ -99,6 +99,12 @@
                                                     <asp:Label ID="Label14" runat="server" Text='<%# Eval("ud_status") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Deactive Date">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lbldeactive" runat="server" 
+                                                        Text='<%# Bind("ud_deactiv_date") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:CommandField HeaderText="Create Admin" ShowSelectButton="True" />
                                             <asp:TemplateField HeaderText="Edit">
                                                 <EditItemTemplate>

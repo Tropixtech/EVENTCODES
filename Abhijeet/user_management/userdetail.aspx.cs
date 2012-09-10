@@ -65,7 +65,7 @@ public partial class userdetail : System.Web.UI.Page
     }
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
-       
+        var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         Label userid = (Label)GridView1.Rows[e.RowIndex].FindControl("lbluserid");
         TextBox fnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtfirst");
         TextBox mnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtmiddle");
@@ -73,11 +73,24 @@ public partial class userdetail : System.Web.UI.Page
         TextBox email = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtemail");
         TextBox pass = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtpass");
         Label crdate = (Label)GridView1.Rows[e.RowIndex].FindControl("lblcreate");
+        Label deactiv = (Label)GridView1.Rows[e.RowIndex].FindControl("lbldeactive");
         RadioButtonList status = GridView1.Rows[e.RowIndex].FindControl("rbtlstatus") as RadioButtonList;
-        ob.dml_statement("update user_details set ud_fname='" + fnme.Text + "',ud_mname='" + mnme.Text + "',ud_lname='" + lnme.Text + "',ud_email_id='" + email.Text + "',ud_password='" + pass.Text + "',ud_created_date='" + crdate.Text + "',ud_status='" + status.SelectedValue + "' where ud_id='" + userid.Text + "'");
+
+        if (status.SelectedValue == "1")
         {
-            GridView1.EditIndex = -1;
-            show();
+            ob.dml_statement("update user_details set ud_fname='" + fnme.Text + "',ud_mname='" + mnme.Text + "',ud_lname='" + lnme.Text + "',ud_email_id='" + email.Text + "',ud_password='" + pass.Text + "',ud_created_date='" + crdate.Text + "',ud_status='" + status.SelectedValue + "' where ud_id='" + userid.Text + "'");
+            {
+                GridView1.EditIndex = -1;
+                show();
+            }
+        }
+        else
+        {
+            ob.dml_statement("update user_details set ud_fname='" + fnme.Text + "',ud_mname='" + mnme.Text + "',ud_lname='" + lnme.Text + "',ud_email_id='" + email.Text + "',ud_password='" + pass.Text + "',ud_deactiv_date='" + createdTime + "',ud_status='" + status.SelectedValue + "' where ud_id='" + userid.Text + "'");
+            {
+                GridView1.EditIndex = -1;
+                show();
+            }
         }
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -96,6 +109,7 @@ public partial class userdetail : System.Web.UI.Page
    
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
+        
         var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         int a = autoid();
         int b = 1;
@@ -111,7 +125,7 @@ public partial class userdetail : System.Web.UI.Page
             if (rbtnstatus.SelectedValue == "Activate")
             {
 
-                ob.dml_statement("insert into user_details values('" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "','','')");
+                ob.dml_statement("insert into user_details values('" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',null,'')");
                 lblmsg.Text = "Data Added Successfully";
             }
             else
