@@ -25,7 +25,7 @@ public class Class1
     }
     public void conn()
     {
-        cn = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=C:\Users\TROPIX-.NET2\Desktop\master page\App_Data\Database.mdf;Integrated Security=True;User Instance=True");
+        cn = new SqlConnection(@"Data Source=.\SQLEXPRESS;AttachDbFilename=E:\EVENTCODES\Ritu\master page\App_Data\Database.mdf;Integrated Security=True;User Instance=True");
         //cn.Open();
     }
     public int rvalue;

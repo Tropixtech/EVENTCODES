@@ -40,7 +40,7 @@ public partial class Newregister : System.Web.UI.Page
         // CONNECTION
         int b = 11;
         int a = Autoid();
-        ob.cm = new System.Data.SqlClient.SqlCommand("insert into user_details (ud_id,ud_fname,ud_mname,ud_lname, ud_email_id,ud_password,ud_created_date,ud_status,ud_deactive_date,ud_lpwd) values('" + a + "','" + TextBox1.Text + "' , '" + TextBox2.Text + "' , '" + TextBox3.Text + "', '" + TextBox4.Text + "','" + TextBox5.Text + "','','"+Convert.ToInt32(b)+"','','')", ob.cn);
+        ob.cm = new System.Data.SqlClient.SqlCommand("insert into user_details (ud_id,ud_fname,ud_mname,ud_lname, ud_email_id,ud_password,ud_created_date,ud_status,ud_deactive_date,ud_lpwd) values('" + a + "','" + TextBox1.Text + "' , '" + TextBox2.Text + "' , '" + TextBox3.Text + "', '" + TextBox4.Text + "','" + TextBox5.Text + "','','"+Convert.ToInt32(b)+"',Null,Null)", ob.cn);
         ob.cn.Open();
         ob.cm.ExecuteNonQuery();
         ob.cn.Close();

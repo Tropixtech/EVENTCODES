@@ -35,7 +35,9 @@
                                         onrowdeleting="GridView1_RowDeleting" onrowediting="GridView1_RowEditing" 
                                         onrowupdating="GridView1_RowUpdating" 
                                         onselectedindexchanged="GridView1_SelectedIndexChanged1" Height="16px" 
-                                        DataKeyNames="ud_id" onrowdatabound="GridView1_RowDataBound1">
+                                        DataKeyNames="ud_id" onrowdatabound="GridView1_RowDataBound1" 
+                                        AllowPaging="True" onpageindexchanging="GridView1_PageIndexChanging" 
+                                        PageSize="1">
                                         <AlternatingRowStyle BackColor="#DCDCDC" />
                                         <Columns>
                                             <asp:TemplateField HeaderText="userid">

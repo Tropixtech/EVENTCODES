@@ -38,15 +38,23 @@ public partial class userdetail : System.Web.UI.Page
     }
     protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        //int id = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString());
+       
         int v = 11;
         int g = 1;
         Label userid = (Label)GridView1.Rows[GridView1.SelectedIndex].FindControl("lbluserid");
-        ob.dml_statement("update user_details set ud_status='" + Convert.ToInt32(v) + "' where ud_id='" + userid.Text + "'");
-        ob.dml_statement("update user_details set ud_status='" + Convert.ToInt32(g) + "' where ud_email_id='" + Session["email"] + "'");
-        show();
+        ob.fetch("select ud_status from user_details where ud_email_id='" + Session["email"] + "'");
+        if (v == Convert.ToInt32(ob.ds.Tables[0].Rows[0]["ud_status"].ToString()))
+        {
+            ob.dml_statement("update user_details set ud_status='" + Convert.ToInt32(v) + "' where ud_id='" + userid.Text + "'");
+            ob.dml_statement("update user_details set ud_status='" + Convert.ToInt32(g) + "' where ud_email_id='" + Session["email"] + "'");
+            show();
 
-        Response.Write("<script>alert('user has been changed to admin')</script>");
+            Response.Write("<script>alert('user has been changed to admin')</script>");
+        }
+        else
+        {
+            Response.Write("<script>alert('Sorry there can be only one Admin')</script>");
+        }
     }
     protected void btncreate_Click(object sender, EventArgs e)
     {
@@ -109,30 +117,36 @@ public partial class userdetail : System.Web.UI.Page
    
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
-        
-        var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        int a = autoid();
-        int b = 1;
-        int c = 0;
-        Panel3.Visible = true;
-        ob.fetch("select ud_email_id from user_details where ud_email_id='" + txtemail.Text + "'");
-        if (ob.ds.Tables[0].Rows.Count > 0)
+        try
         {
-            lblmsg.Text = "Email Id Already Exist";
-        }
-        else
-        {
-            if (rbtnstatus.SelectedValue == "Activate")
+            var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            int a = autoid();
+            int b = 1;
+            int c = 0;
+            Panel3.Visible = true;
+            ob.fetch("select ud_email_id from user_details where ud_email_id='" + txtemail.Text + "'");
+            if (ob.ds.Tables[0].Rows.Count > 0)
             {
-
-                ob.dml_statement("insert into user_details values('" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',null,'')");
-                lblmsg.Text = "Data Added Successfully";
+                lblmsg.Text = "Email Id Already Exist";
             }
             else
             {
-                ob.dml_statement("update user_details set ud_status='" + c + "' where ud_email_id='" + txtemail.Text + "'");
-                lblmsg.Text = "Data Added Successfully";
+                if (rbtnstatus.SelectedValue == "Activate")
+                {
+
+                    ob.dml_statement("insert into user_details values('" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',null,'')");
+                    lblmsg.Text = "Data Added Successfully";
+                }
+                else
+                {
+                    ob.dml_statement("update user_details set ud_status='" + c + "' where ud_email_id='" + txtemail.Text + "'");
+                    lblmsg.Text = "Data Added Successfully";
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            lblmsg.Text = ex.Message;
         }
     }
     protected void btnshow_Click(object sender, EventArgs e)
@@ -190,5 +204,11 @@ public partial class userdetail : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("event_home.aspx");
+    }
+
+    protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        show();
     }
 }

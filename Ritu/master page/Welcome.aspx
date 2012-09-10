@@ -19,18 +19,9 @@
         {
             text-align: center;
         }
-        .style15
-        {
-            text-align: left;
-            font-size: 12px;
-        }
         .style21
         {
             width: 187px;
-        }
-        .style22
-        {
-            width: 104px;
         }
         .style23
         {
@@ -182,7 +173,7 @@
                             </tr>
                             <tr>
                                 <td class="style4">
-                                    &nbsp;</td>
+                                    ss</td>
                                 <td class="style6">
                                     &nbsp;</td>
                                 <td class="style21">
