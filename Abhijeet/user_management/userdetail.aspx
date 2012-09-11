@@ -3,6 +3,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <title></title>
       <link href="StyleSheet3.css" rel="stylesheet" type="text/css" />
+      <script type="text/javascript">
+
+          function ConfirmationBox(userid) {
+
+
+              var result = confirm('Are you sure you want to delete ' + userid + ' Details?');
+              if (result) {
+
+                  return true;
+              }
+              else {
+                  return false;
+              }
+          }
+</script>
     <style type="text/css">
      
     </style>
@@ -37,7 +52,7 @@
                                         onselectedindexchanged="GridView1_SelectedIndexChanged1" Height="16px" 
                                         DataKeyNames="ud_id" onrowdatabound="GridView1_RowDataBound1" 
                                         AllowPaging="True" onpageindexchanging="GridView1_PageIndexChanging" 
-                                        PageSize="1">
+                                        PageSize="5">
                                         <AlternatingRowStyle BackColor="#DCDCDC" />
                                         <Columns>
                                             <asp:TemplateField HeaderText="userid">
@@ -145,6 +160,9 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="Button1" runat="server" Height="28px" 
                                         onclick="Button1_Click" Text="Back" Width="118px" />
+                                    &nbsp;&nbsp;&nbsp;
+                                    <asp:Label ID="lblmsg1" runat="server" 
+                                        style="font-family: Tahoma; font-size: 11pt"></asp:Label>
                                 </td>
                             </tr>
                         </table>
@@ -206,7 +224,6 @@
                                     <asp:RadioButtonList ID="rbtnstatus" runat="server" 
                                         style="font-family: Tahoma; font-size: 11pt">
                                         <asp:ListItem>Activate</asp:ListItem>
-                                        <asp:ListItem>Deactivate</asp:ListItem>
                                     </asp:RadioButtonList>
                                 </td>
                             </tr>
