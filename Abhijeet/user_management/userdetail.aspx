@@ -20,6 +20,12 @@
 </script>
     <style type="text/css">
      
+        #Reset1
+        {
+            width: 118px;
+            height: 28px;
+        }
+     
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -55,12 +61,12 @@
                                         PageSize="5">
                                         <AlternatingRowStyle BackColor="#DCDCDC" />
                                         <Columns>
-                                            <asp:TemplateField HeaderText="userid">
+                                            <asp:TemplateField HeaderText="Userid">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbluserid" runat="server" Text='<%# Bind("ud_id") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="first name">
+                                            <asp:TemplateField HeaderText="First Name">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblfirst" runat="server" Text='<%# Bind("ud_fname") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -68,7 +74,7 @@
                                                     <asp:TextBox ID="txtfirst" runat="server" Text='<%# Eval("ud_fname") %>' ></asp:TextBox>
                                                 </EditItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="midddle">
+                                            <asp:TemplateField HeaderText="Midddle Initial">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblmiddle" runat="server" Text='<%# Bind("ud_mname") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -76,7 +82,7 @@
                                                     <asp:TextBox ID="txtmiddle" runat="server" Text='<%# Eval("ud_mname") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="last">
+                                            <asp:TemplateField HeaderText="Last Name">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbllast" runat="server" Text='<%# Bind("ud_lname") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -84,7 +90,7 @@
                                                     <asp:TextBox ID="txtlast" runat="server" Text='<%# Eval("ud_lname") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="email">
+                                            <asp:TemplateField HeaderText="Email Id">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblemail" runat="server" Text='<%# Bind("ud_email_id") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -92,7 +98,7 @@
                                                     <asp:TextBox ID="txtemail" runat="server" Text='<%# Eval("ud_email_id") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="password">
+                                            <asp:TemplateField HeaderText="Password">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblpass" runat="server" Text='<%# Bind("ud_password") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -100,12 +106,12 @@
                                                     <asp:TextBox ID="txtpass" runat="server" Text='<%# Eval("ud_password") %>'></asp:TextBox>
                                                 </EditItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="created date">
+                                            <asp:TemplateField HeaderText="Created Date">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblcreate" runat="server" Text='<%# Bind("ud_created_date") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="status">
+                                            <asp:TemplateField HeaderText="Status">
                                                 <EditItemTemplate>
                                                     <asp:RadioButtonList ID="rbtlstatus" runat="server" DataValueField='<%# Eval("ud_status") %>'>
                                                         <asp:ListItem Value="1">Activate</asp:ListItem>
@@ -116,7 +122,7 @@
                                                     <asp:Label ID="Label14" runat="server" Text='<%# Eval("ud_status") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Deactive Date">
+                                            <asp:TemplateField HeaderText="Deactivated Date">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbldeactive" runat="server" 
                                                         Text='<%# Bind("ud_deactiv_date") %>'></asp:Label>
@@ -154,8 +160,7 @@
                                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                         <SortedDescendingHeaderStyle BackColor="#000065" />
                                     </asp:GridView>
-                                    <asp:Button ID="btncreate" runat="server" 
-                                        ForeColor="#000077" onclick="btncreate_Click" 
+                                    <asp:Button ID="btncreate" runat="server" onclick="btncreate_Click" 
                                         style="font-family: Tahoma; font-size: 11pt" Text="Create User" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="Button1" runat="server" Height="28px" 
@@ -179,21 +184,24 @@
                                         style="font-family: Tahoma; font-size: 11pt" Text="First Name"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtfirst" runat="server" Height="23px" Width="145px"></asp:TextBox>
+                                    <asp:TextBox ID="txtfirst" runat="server" Height="23px" Width="145px" 
+                                        ToolTip="Please enter your first name"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:Label ID="Label5" runat="server" 
-                                        style="font-family: Tahoma; font-size: 11pt" Text="M Initial"></asp:Label>
+                                        style="font-family: Tahoma; font-size: 11pt" Text="Middle Initial"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtmiddle" runat="server" Height="23px" Width="50px"></asp:TextBox>
+                                    <asp:TextBox ID="txtmiddle" runat="server" Height="23px" Width="50px" 
+                                        ToolTip="Please enter your middle initial name"></asp:TextBox>
                                 </td>
                                 <td>
                                     <asp:Label ID="Label6" runat="server" 
                                         style="font-family: Tahoma; font-size: 11pt" Text="Last Name"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtlast" runat="server" Height="23px" Width="135px"></asp:TextBox>
+                                    <asp:TextBox ID="txtlast" runat="server" Height="23px" Width="135px" 
+                                        ToolTip="Please enter your last name"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -202,7 +210,8 @@
                                         style="font-family: Tahoma; font-size: 11pt" Text="Email Id"></asp:Label>
                                 </td>
                                 <td colspan="5">
-                                    <asp:TextBox ID="txtemail" runat="server" Height="23px" Width="145px"></asp:TextBox>
+                                    <asp:TextBox ID="txtemail" runat="server" Height="23px" Width="145px" 
+                                        ToolTip="Please enter your emailid"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -212,7 +221,7 @@
                                 </td>
                                 <td colspan="5">
                                     <asp:TextBox ID="txtpass" runat="server" Height="23px" Width="145px" 
-                                        TextMode="Password"></asp:TextBox>
+                                        TextMode="Password" ToolTip="Please enter a secure password"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
@@ -223,7 +232,7 @@
                                 <td colspan="5">
                                     <asp:RadioButtonList ID="rbtnstatus" runat="server" 
                                         style="font-family: Tahoma; font-size: 11pt">
-                                        <asp:ListItem>Activate</asp:ListItem>
+                                        <asp:ListItem>Active</asp:ListItem>
                                     </asp:RadioButtonList>
                                 </td>
                             </tr>
@@ -237,11 +246,11 @@
                                 <td>
                                     &nbsp;</td>
                                 <td colspan="5">
-                                    <asp:Button ID="btnsubmit" runat="server" 
-                                        ForeColor="#000077" onclick="btnsubmit_Click" 
+                                    <asp:Button ID="btnsubmit" runat="server" onclick="btnsubmit_Click" 
                                         style="font-family: Tahoma; font-size: 11pt" Text="Submit" Width="118px" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="btnshow" runat="server" ForeColor="#000077" 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Reset1" 
+                                        type="reset" value="Reset" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:Button ID="btnshow" runat="server" 
                                         onclick="btnshow_Click" style="font-family: Tahoma; font-size: 11pt" 
                                         Text="Show" Width="118px" />
                                     &nbsp;</td>

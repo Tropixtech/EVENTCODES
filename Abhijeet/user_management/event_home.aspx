@@ -28,7 +28,7 @@
             <tr>
                 <td class="style1">
                     <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click" 
-                        style="font-family: Tahoma; font-size: 11pt">User Access</asp:LinkButton>
+                        style="font-family: Tahoma; font-size: 11pt">User Management</asp:LinkButton>
                 </td>
                 <td>
                     <asp:Button ID="Button1" runat="server" Height="28px" onclick="Button1_Click" 
