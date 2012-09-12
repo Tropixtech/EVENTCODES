@@ -65,14 +65,33 @@ public partial class userdetail : System.Web.UI.Page
     }
     protected void btncreate_Click(object sender, EventArgs e)
     {
-        Panel3.Visible = true;
+
+        int st = 11;
+        ob1.read("fetch_status_admin", "'" + Session["email"] + "'");
+        if (st == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
+        {
+            Panel3.Visible = true;
+        }
+        else
+        {
+            lblmsg1.Text = "Admin can only create users";
+        }
     }
     
     public void show1()
     {
-        ob1.read1("fetch_all");
-        GridView1.DataSource = ob1.ds;
-        GridView1.DataBind();
+        try
+        {
+            ob1.read("fetch_od_id", "'" + Session["email"] + "'");
+            int orgid = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["od_id"].ToString());
+            ob1.read("fetch_all", "'" + orgid + "'");
+            GridView1.DataSource = ob1.ds;
+            GridView1.DataBind();
+        }
+        catch (Exception ex)
+        {
+            lblmsg1.Text = ex.Message;
+        }
     }
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
@@ -150,6 +169,7 @@ public partial class userdetail : System.Web.UI.Page
     {
         try
         {
+           
             var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             int a = autoid();
             int b = 1;
@@ -162,9 +182,10 @@ public partial class userdetail : System.Web.UI.Page
             }
             else
             {
-                
+                ob1.read("fetch_od_id", "'" + Session["email"] + "'");
+                int orgidd = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["od_id"].ToString());
 
-                  ob1.read("insert_user","'" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',null,null");
+                  ob1.read("insert_user","'"+orgidd+"','" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',NULL,NULL");
                     lblmsg.Text = "Data Added Successfully";
                  
             }
