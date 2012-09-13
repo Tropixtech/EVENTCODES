@@ -10,7 +10,8 @@
     <table class="style1">
         <tr>
             <td>
-                <asp:Label ID="Label1" runat="server" Font-Size="X-Large" Text="Session"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Font-Size="X-Large" Text="Session" 
+                    Font-Names="Tahoma"></asp:Label>
             </td>
             <td>
                 &nbsp;</td>
@@ -28,7 +29,8 @@
         <tr>
             <td>
                 <asp:Button ID="btnAddSession" runat="server" Text="Add New Session" 
-                    onclick="btnAddSession_Click" />
+                    onclick="btnAddSession_Click" Font-Names="Tahoma" Height="28px" 
+                    Width="118px" />
             </td>
             <td>
                 &nbsp;</td>
@@ -52,20 +54,6 @@
                     onrowdeleting="gvSession_RowDeleting" DataKeyNames="ss_id" 
                     onrowediting="gvSession_RowEditing" >
                     <Columns>
-                        <asp:BoundField DataField="ss_title" HeaderText="Title" />
-                        <asp:BoundField DataField="ss_mdtr_fname" HeaderText="Moderator" />
-                        <asp:BoundField DataField="ss_prior_paper_subm" HeaderText="Paper Submission" />
-                        <asp:BoundField DataField="ss_created" HeaderText="Created On" />
-                        <asp:BoundField DataField="ss_modified" HeaderText="Modified On" />
-                      
-
-
-                        <asp:TemplateField HeaderText="Paper Submission">
-                          <ItemTemplate>
-                                <%#PaperSubmissionStatus(int.Parse(DataBinder.Eval(Container.DataItem,"ss_prior_paper_subm" ).ToString()))%>
-
-                            </ItemTemplate>
-                        </asp:TemplateField>
 
                         <%--<asp:TemplateField HeaderText="Moderator">
                           <ItemTemplate>
@@ -74,6 +62,18 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                       --%>
+
+
+                        <asp:BoundField DataField="ss_title" HeaderText="Title" />
+                        <asp:BoundField DataField="ss_mdtr_fname" HeaderText="Moderator" />
+                        <asp:TemplateField HeaderText="Paper Submission">
+                            <ItemTemplate>
+                                <%#PaperSubmissionStatus(int.Parse(DataBinder.Eval(Container.DataItem,"ss_prior_paper_subm" ).ToString()))%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="ss_max_no_atnd" HeaderText="Capacity" />
+                        <asp:BoundField DataField="ss_created" HeaderText="Created On" />
+                        <asp:BoundField DataField="ss_modified" HeaderText="Modified On" />
 
 
                         <asp:TemplateField>

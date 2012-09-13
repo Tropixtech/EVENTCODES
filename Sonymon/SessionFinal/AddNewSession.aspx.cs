@@ -10,7 +10,7 @@ using System.Drawing;
 
 public partial class AddNewSession : System.Web.UI.Page
 {
-    static string constr = "Data Source=.\\SQLEXPRESS;AttachDbFilename=D:\\EventManagementSystem\\SessionInAsp\\App_Data\\Database.mdf;Integrated Security=True;User Instance=True";
+    static string constr = "Data Source=.\\SQLEXPRESS;AttachDbFilename=D:\\EventManagementSystem\\SessionFinal\\App_Data\\Database.mdf;Integrated Security=True;User Instance=True";
     private SqlConnection con = new SqlConnection(constr);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,23 +18,27 @@ public partial class AddNewSession : System.Web.UI.Page
         {
             BindPresenter();
             BindAdditionalReq();
-
-            //lblTest.Text = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
-          //  lblTest.Text = Session["test"].ToString();
             lblpriorPaperSubmValidation.Visible = false;
             if (Session["command"] != null && Session["command"].Equals("EditSession"))
+            {
                 SetFields();
+                btnSubmit.Text = "Update";
+            }
+            if (Session["sessionId"] == null)
+                Response.Redirect("Default.aspx");
         }
-    }
+    }   
+
 
     protected void BindPresenter()
     {
         con.Open();
-        SqlCommand cmd = new SqlCommand("Select * from presenter", con);
+        SqlCommand cmd = new SqlCommand("Select * from presenter where pr_ss_id=" + Convert.ToInt16(Session["sessionId"]), con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds);
         con.Close();
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             gvPresenter.DataSource = ds;
@@ -43,8 +47,6 @@ public partial class AddNewSession : System.Web.UI.Page
         else
         {
             gvPresenter.TemplateControl.Visible = true;
-            //gvPresenter.Columns[2].Visible = false;
-            //gvPresenter.ShowFooter = true;
             ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
             gvPresenter.DataSource = ds;
             gvPresenter.DataBind();
@@ -52,16 +54,14 @@ public partial class AddNewSession : System.Web.UI.Page
             gvPresenter.Rows[0].Cells.Clear();
             gvPresenter.Rows[0].Cells.Add(new TableCell());
             gvPresenter.Rows[0].Cells[0].ColumnSpan = columncount;
-            //gvPresenter.Rows[0].Cells[0].Text = "No Presenter`s Detail Available";
             gvPresenter.Rows[0].Cells[0].Text = "";
         }
-
     }
 
     protected void BindAdditionalReq()
     {
         con.Open();
-        SqlCommand cmd = new SqlCommand("Select * from additionalreq", con);
+        SqlCommand cmd = new SqlCommand("Select * from additionalreq where ar_ss_id = " + Convert.ToInt16(Session["sessionId"]), con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataSet ds = new DataSet();
         da.Fill(ds);
@@ -73,8 +73,6 @@ public partial class AddNewSession : System.Web.UI.Page
         }
         else
         {
-            //gvAdditionalReq.Columns[2].Visible = false;
-            //gvAdditionalReq.ShowFooter = true;
             ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
             gvAdditionalReq.DataSource = ds;
             gvAdditionalReq.DataBind();
@@ -82,10 +80,8 @@ public partial class AddNewSession : System.Web.UI.Page
             gvAdditionalReq.Rows[0].Cells.Clear();
             gvAdditionalReq.Rows[0].Cells.Add(new TableCell());
             gvAdditionalReq.Rows[0].Cells[0].ColumnSpan = columncount;
-            //gvAdditionalReq.Rows[0].Cells[0].Text = "No Presenter`s Detail Available";
             gvAdditionalReq.Rows[0].Cells[0].Text = "";
         }
-
     }
 
     protected void gvPresenter_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -102,7 +98,7 @@ public partial class AddNewSession : System.Web.UI.Page
             con.Open();
             SqlCommand cmd =
                 new SqlCommand(
-                    "insert into presenter(pr_name,pr_topic) values('" +
+                    "insert into presenter(pr_ss_id,pr_name,pr_topic) values("+ Convert.ToInt16(Session["sessionId"]) + ",'" +
                     txtName.Text + "','" + txtTopic.Text + "')", con);
             int result = cmd.ExecuteNonQuery();
             con.Close();
@@ -117,7 +113,6 @@ public partial class AddNewSession : System.Web.UI.Page
                 lblresult.ForeColor = Color.Red;
                 lblresult.Text = txtName.Text + " Details not inserted";
             }
-
         }
     }
     protected void gvPresenter_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -155,17 +150,12 @@ public partial class AddNewSession : System.Web.UI.Page
     }
     protected void gvPresenter_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
-
-
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             ImageButton btnEdit = (ImageButton)e.Row.FindControl("imgbtnEdit");
             ImageButton btnDelete = (ImageButton)e.Row.FindControl("imgbtnDelete");
-
             btnEdit.Visible = true;
             btnDelete.Visible = true;
-
 
             //getting username from particular row
             string username = Convert.ToString(DataBinder.Eval(e.Row.DataItem, "pr_name"));
@@ -178,10 +168,6 @@ public partial class AddNewSession : System.Web.UI.Page
             }
         }
     }
-
-
-
-
 
 
     protected void gvAdditionalReq_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -198,7 +184,7 @@ public partial class AddNewSession : System.Web.UI.Page
             con.Open();
             SqlCommand cmd =
                 new SqlCommand(
-                    "insert into additionalreq(ar_equipment,ar_specification) values('" +
+                    "insert into additionalreq(ar_ss_id,ar_equipment,ar_specification) values(" + Convert.ToInt16(Session["sessionId"]) +",'" +
                     txtEquipment.Text + "','" + txtSpecification.Text + "')", con);
             int result = cmd.ExecuteNonQuery();
             con.Close();
@@ -289,9 +275,7 @@ public partial class AddNewSession : System.Web.UI.Page
         txtMdtrFName.Text = ds.Tables[0].Rows[0]["ss_mdtr_fname"].ToString(); 
         txtMdtrMName.Text = ds.Tables[0].Rows[0]["ss_mdtr_mname"].ToString();
         txtMdtrLName.Text = ds.Tables[0].Rows[0]["ss_mdtr_lname"].ToString();
-
         txtNoAttendees.Text = ds.Tables[0].Rows[0]["ss_max_no_atnd"].ToString();
-
 
         byte priorPaperSubm = Convert.ToByte(ds.Tables[0].Rows[0]["ss_prior_paper_subm"]);
         if (priorPaperSubm == 1)
@@ -353,16 +337,13 @@ public partial class AddNewSession : System.Web.UI.Page
                     break;
 
             default: break;
-
         }
-
 
         int priceAttend = Convert.ToInt16(ds.Tables[0].Rows[0]["ss_price_attend"]);
         if (priceAttend == 1)
             rblPriceAttend.SelectedIndex = 0;
         else
            rblPriceAttend.SelectedIndex = 1;
-
     }
 
 
@@ -444,23 +425,23 @@ public partial class AddNewSession : System.Web.UI.Page
         {
             var modifiedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             query = "update session set ss_title ='" + title + "',ss_description = '" + description + "',ss_mdtr_fname = '" + mdtrFName + "',ss_mdtr_mname='" + mdthMName + "',ss_mdtr_lname='" + mdthLName + "',ss_max_no_atnd = " + maxNoAtnd + ",ss_prior_paper_subm=" + priorPaperSubm + ",ss_sharing_option=" + sharingOption + ",ss_price_attend=" + priceAttend + ",ss_modified='" + modifiedTime + "' where ss_id = " + Convert.ToInt16(Session["id"]);
-           // query = "update session set ss_title ='hero',ss_description = '" + description + "',ss_mdtr_fname = '" + mdtrFName + "',ss_mdtr_mname='" + mdthMName + "',ss_mdtr_lname='" + mdthLName + "',ss_max_no_atnd = " + maxNoAtnd + ",ss_prior_paper_subm=" + priorPaperSubm + ",ss_sharing_option=" + sharingOption + ",ss_price_attend=" + priceAttend + ",ss_modified='" + modifiedTime + "' where ss_id = " + Convert.ToInt16(Session["id"]);
-            lblTest.Text = "edit successfull";
         }
         else
         {
             var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            query = "insert into session (ss_title,ss_description,ss_mdtr_fname,ss_mdtr_mname,ss_mdtr_lname,ss_max_no_atnd,ss_prior_paper_subm,ss_sharing_option,ss_price_attend,ss_created,ss_modified) values('" + title + "','" + description + "','" + mdtrFName + "','" + mdthMName + "','" + mdthLName + "'," + maxNoAtnd + "," + priorPaperSubm + "," + sharingOption + "," + priceAttend + ",'" + createdTime + "','" + createdTime + "')";
-            lblTest.Text = "insert successfull";
+            query = "insert into session (ss_id,ss_title,ss_description,ss_mdtr_fname,ss_mdtr_mname,ss_mdtr_lname,ss_max_no_atnd,ss_prior_paper_subm,ss_sharing_option,ss_price_attend,ss_created,ss_modified) values(" + Convert.ToInt16(Session["sessionId"]) + ",'" + title + "','" + description + "','" + mdtrFName + "','" + mdthMName + "','" + mdthLName + "'," + maxNoAtnd + "," + priorPaperSubm + "," + sharingOption + "," + priceAttend + ",'" + createdTime + "','" + createdTime + "')";
         }
         con.Open();
         SqlCommand cmd = new SqlCommand(query,con);
         cmd.ExecuteNonQuery();
         con.Close();
 
-        //if(rblSubmitOption.SelectedIndex == 0)
-           Response.Redirect("Default.aspx");
+        Session["sessionId"] = null;
+        Response.Redirect("Default.aspx");
+
+
     }
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("Default.aspx");

@@ -9,7 +9,7 @@ using System.Data;
 
 public partial class _Default : System.Web.UI.Page
 {
-    static string constr = "Data Source=.\\SQLEXPRESS;AttachDbFilename=D:\\EventManagementSystem\\SessionInAsp\\App_Data\\Database.mdf;Integrated Security=True;User Instance=True";
+    static string constr = "Data Source=.\\SQLEXPRESS;AttachDbFilename=D:\\EventManagementSystem\\SessionFinal\\App_Data\\Database.mdf;Integrated Security=True;User Instance=True";
     private SqlConnection con = new SqlConnection(constr);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,8 +17,23 @@ public partial class _Default : System.Web.UI.Page
         {
             BindSession();
             Session["command"] = null;
-        }
-        
+        }   
+    }
+
+    protected int generateSessionId()
+    {
+        int id ;
+        con.Open();
+        SqlCommand cmd = new SqlCommand("Select max(ss_id) as exp from session", con);
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        con.Close();
+        if (ds.Tables[0].Rows.Count > 0)
+            id = Convert.ToInt16(ds.Tables[0].Rows[0]["exp"]);
+        else
+            id = 0;
+        return (id + 1);
     }
 
     protected string PaperSubmissionStatus(int flag)
@@ -37,6 +52,7 @@ public partial class _Default : System.Web.UI.Page
         DataSet ds = new DataSet();
         da.Fill(ds);
         con.Close();
+
         if (ds.Tables[0].Rows.Count > 0)
         {
             gvSession.DataSource = ds;
@@ -56,9 +72,7 @@ public partial class _Default : System.Web.UI.Page
             gvSession.Rows[0].Cells[0].ColumnSpan = columncount;
             gvSession.Rows[0].Cells[0].Text = "No Session Available";
         }
-
     }
-
 
    
     protected void gvSession_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -72,37 +86,40 @@ public partial class _Default : System.Web.UI.Page
         if (result == 1)
         {
             BindSession();
-            //lblresult.ForeColor = Color.Red;
-            //lblresult.Text = id + " details deleted successfully";
         }
+        con.Open();
+        cmd = new SqlCommand("delete from presenter where pr_ss_id=" + id, con);
+        result = cmd.ExecuteNonQuery();
+        con.Close();
+        con.Open();
+        cmd = new SqlCommand("delete from additionalreq where ar_ss_id=" + id, con);
+        result = cmd.ExecuteNonQuery();
+        con.Close();
     }
+
+
     protected void gvSession_RowCommand(object sender, GridViewCommandEventArgs e)
     {
       
         if (e.CommandName.Equals("Edit"))
         {
             int id = Convert.ToInt16(e.CommandArgument.ToString());
-
             var modifiedTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-           // con.Open();
-          //  SqlCommand cmd = new SqlCommand("update session set ss_modified='" + modifiedTime + "' where ss_id=" + id, con);
             Session["test"] = "EDITED";
             Session["id"] = id;
             Session["command"] = "EditSession";
-          //  cmd.ExecuteNonQuery();
-          //  con.Close();
+            Session["sessionId"] = id;
             Response.Redirect("AddNewSession.aspx");
         }
-
     }
 
     protected void btnAddSession_Click(object sender, EventArgs e)
     {
+        Session["sessionId"] = generateSessionId();
         Response.Redirect("AddNewSession.aspx");
     }
+
     protected void gvSession_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        //gvSession.EditIndex = e.NewEditIndex;
-        //BindSession();
     }
 }
