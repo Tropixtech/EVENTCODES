@@ -9,13 +9,14 @@ using System.Data.SqlClient;
 
 public partial class organisationdetails : System.Web.UI.Page
 {
-    Class1 ob = new Class1();
+   // Class1 ob = new Class1();
+    org_class obj = new org_class();
    
     protected void Page_Load(object sender, EventArgs e)
     {
        
 
-        ob.conn();
+        //ob.conn();
 
         Label1.Visible = false;
         Label2.Visible = false;
@@ -60,8 +61,10 @@ public partial class organisationdetails : System.Web.UI.Page
         else
         {
 
-            ob.fetch("select od_industry from organisation_details where od_name='" + txtOrgname.Text + "'");
-            if (ob.ds.Tables[0].Rows.Count > 0 && ddIndustry.Text == ob.ds.Tables[0].Rows[0]["od_industry"].ToString())
+            //ob.fetch("select od_industry from organisation_details where od_name='" + txtOrgname.Text + "'");           
+           // if (ob.ds.Tables[0].Rows.Count > 0 && ddIndustry.Text == ob.ds.Tables[0].Rows[0]["od_industry"].ToString())
+            obj.read("fetch_od_industry", "'" + txtOrgname.Text + "'");
+           if (obj.ds.Tables[0].Rows.Count > 0 && ddIndustry.Text == obj.ds.Tables[0].Rows[0]["od_industry"].ToString())
             {
                 Label13.Visible = true;
                 Label13.Text = "*Organisation name & Industry exist";
@@ -71,7 +74,7 @@ public partial class organisationdetails : System.Web.UI.Page
             }
         }
 
-         //asfdsadfsdfsdfsdfsfsdff
+        
         //if (ddCountry.SelectedIndex == 0)
         //{
         //    Label11.Visible = true;
@@ -119,14 +122,14 @@ public partial class organisationdetails : System.Web.UI.Page
        
         if (Label8.Text.Length == 0)
         {
-
+           // var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string tym_dt = "";
             tym_dt = DateTime.Now.ToShortDateString().ToString();
             tym_dt += ' ' + DateTime.Now.ToShortTimeString().ToString();
 
             //data inserting to database table organisation details
-            ob.dml_qry("insert into organisation_details values ('" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtPhoneno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "')");
-
+            //ob.dml_qry("insert into organisation_details values ('" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtPhoneno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "')");
+            obj.read("insert_org", "'" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtPhoneno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "'");
             Response.Redirect("Default2.aspx");
 
         }

@@ -63,7 +63,7 @@
                 <table>
             <tr>
                 <td align="center" class="style2">
-                    Organisation Details</td>
+                    Organization Details</td>
             </tr>
         </table>
         <br />
@@ -72,7 +72,7 @@
                 <td class="style12">
                     </td>
                 <td class="style11" colspan="2">
-                    Organisation Name</td>
+                    Organization Name</td>
                 <td class="style5">
                     <asp:TextBox ID="txtOrgname" runat="server" Height="23px" Width="145px"></asp:TextBox>
                 </td>
@@ -85,7 +85,7 @@
                 <td class="style12">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
-                    Organisation Type</td>
+                    Organization Type</td>
                 <td class="style5">
                     <asp:DropDownList ID="ddOrgtype" runat="server" Height="23px" Width="145px">
                     <asp:ListItem>Select type</asp:ListItem>

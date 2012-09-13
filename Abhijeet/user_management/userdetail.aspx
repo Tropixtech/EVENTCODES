@@ -3,21 +3,45 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <title></title>
       <link href="StyleSheet3.css" rel="stylesheet" type="text/css" />
-      <script type="text/javascript">
-
-          function ConfirmationBox(userid) {
-
-
-              var result = confirm('Are you sure you want to delete ' + userid + ' Details?');
-              if (result) {
-
-                  return true;
-              }
-              else {
+      <script  type="text/javascript">
+          function mailvalidate() {
+              if (document.getElementById("<%=txtfirst.ClientID%>").value == "") {
+                  alert("Please enter user first name");
+                  document.getElementById("<%=txtfirst.ClientID%>").focus();
                   return false;
               }
+              if (document.getElementById("<%=txtlast.ClientID %>").value == "") {
+                  alert("Please enter user last name");
+                  document.getElementById("<%=txtlast.ClientID %>").focus();
+                  return false;
+              }
+              if (document.getElementById("<%=txtemail.ClientID %>").value == "") {
+                  alert("Email Id cannot be blank");
+                  document.getElementById("<%=txtemail.ClientID %>").focus();
+                  return false;
+              }
+              
+              var emailPat = /^(\".*\"|[A-Za-z]\w*)@(\[\d{1,3}(\.\d{1,3}){3}]|[A-Za-z]\w*(\.[A-Za-z]\w*)+)$/;
+              var emailid = document.getElementById("<%=txtemail.ClientID %>").value;
+              var matchArray = emailid.match(emailPat);
+              if (matchArray == null) {
+                  alert("Please enter a valid email Id");
+                  document.getElementById("<%=txtemail.ClientID %>").focus();
+                  return false;
+              }
+              if (document.getElementById("<%=txtpass.ClientID %>").value == "") {
+                  alert("Please enter a password for the user");
+                  document.getElementById("<%=txtpass.ClientID %>").focus();
+                  return false;
+              }
+
+
           }
-</script>
+          
+
+      
+      
+       </script>
     <style type="text/css">
      
         #Reset1
@@ -40,7 +64,13 @@
             align="center">
             <tr>
                 <td>
-                    &nbsp;</td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Label ID="Label15" runat="server" 
+                        style="font-family: Tahoma; font-size: x-large; color: #000000" Text="WELCOME"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Label ID="lblorg" runat="server" 
+                        style="font-family: Tahoma; font-size: x-large"></asp:Label>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -246,13 +276,14 @@
                                 <td>
                                     &nbsp;</td>
                                 <td colspan="5">
-                                    <asp:Button ID="btnsubmit" runat="server" onclick="btnsubmit_Click" 
+                                    <asp:Button ID="btnsubmit" runat="server" onclick="btnsubmit_Click" OnClientClick=" return mailvalidate()"
                                         style="font-family: Tahoma; font-size: 11pt" Text="Submit" Width="118px" />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="Reset1" 
-                                        type="reset" value="Reset" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button2" runat="server" Height="28px" 
+                                        onclick="Button2_Click" Text="Reset" Width="118px" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="btnshow" runat="server" 
                                         onclick="btnshow_Click" style="font-family: Tahoma; font-size: 11pt" 
-                                        Text="Show" Width="118px" />
+                                        Text="Cancel" Width="118px" />
                                     &nbsp;</td>
                             </tr>
                         </table>
