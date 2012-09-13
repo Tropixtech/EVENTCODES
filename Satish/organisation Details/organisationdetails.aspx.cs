@@ -17,7 +17,7 @@ public partial class organisationdetails : System.Web.UI.Page
        
 
         //ob.conn();
-
+        //Label14.Text = Convert.ToString(Session[""]);
         Label1.Visible = false;
         Label2.Visible = false;
         Label3.Visible = false;
@@ -31,7 +31,8 @@ public partial class organisationdetails : System.Web.UI.Page
         Label11.Visible = false;
         Label12.Visible = false;
         Label13.Visible = false;
-               
+        Label14.Visible = false;
+        Label15.Visible = false;
        
     }
      protected void Button1_Click(object sender, EventArgs e)
@@ -44,6 +45,18 @@ public partial class organisationdetails : System.Web.UI.Page
             Label1.Visible = true;
             Label1.Text = "*Please enter your organization name";
             Label8.Text = Label1.Text;
+        }
+        else
+        {
+            obj.read("od_fetch_od_name", "'" + txtOrgname.Text + "'");
+            if (obj.ds.Tables[0].Rows.Count > 0 )
+            {
+                Label13.Visible = true;
+                Label13.Text = "*Organisation name already exist";
+                Label8.Text = Label13.Text;
+
+
+            }
         }
         if (ddOrgtype.SelectedIndex == 0)
         {
@@ -58,7 +71,7 @@ public partial class organisationdetails : System.Web.UI.Page
             Label8.Text = Label10.Text;
 
         }
-        else
+        /*else
         {
 
             //ob.fetch("select od_industry from organisation_details where od_name='" + txtOrgname.Text + "'");           
@@ -74,7 +87,7 @@ public partial class organisationdetails : System.Web.UI.Page
             }
         }
 
-        
+        */
         //if (ddCountry.SelectedIndex == 0)
         //{
         //    Label11.Visible = true;
@@ -113,7 +126,7 @@ public partial class organisationdetails : System.Web.UI.Page
             Label4.Text = "*Please enter your zip code";
             Label8.Text = Label4.Text;
         }
-        if (txtPhoneno.Text == "")
+        if (txtcontactno.Text == "")
         {
             Label5.Visible = true;
             Label5.Text = "*Please enter your phone no";
@@ -126,10 +139,11 @@ public partial class organisationdetails : System.Web.UI.Page
             string tym_dt = "";
             tym_dt = DateTime.Now.ToShortDateString().ToString();
             tym_dt += ' ' + DateTime.Now.ToShortTimeString().ToString();
+            Label14.Text = "1";//change this
 
             //data inserting to database table organisation details
             //ob.dml_qry("insert into organisation_details values ('" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtPhoneno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "')");
-            obj.read("insert_org", "'" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtPhoneno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "'");
+            obj.read("insert_org", "'" + Label14.Text + "','" + txtOrgname.Text + "','" + ddOrgtype.Text + "','" + ddIndustry.Text + "','" + ddCountry.Text + "','" + ddState.Text + "','" + txtCity.Text + "','" + txtAddress1.Text + "','" + txtAddress2.Text + "','" + txtZipcode.Text + "','" + txtcontactno.Text + "','" + txtWebsite.Text + "','" + tym_dt + "','" + tym_dt + "','" + "" + "','" + "" + "'");
             Response.Redirect("Default2.aspx");
 
         }
@@ -144,7 +158,7 @@ public partial class organisationdetails : System.Web.UI.Page
         txtAddress1.Text = "";
         txtAddress2.Text = "";
         txtZipcode.Text = "";
-        txtPhoneno.Text = "";
+        txtcontactno.Text = "";
         txtWebsite.Text = "";
         txtCity.Text = "";
         ddIndustry.SelectedIndex = 0;

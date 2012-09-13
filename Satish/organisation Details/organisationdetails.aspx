@@ -9,14 +9,10 @@
         }
         .style2
         {
-            width: 897px;
+            width: 872px;
             height: 70px;
             font-family: Tahoma;
             font-size: xx-large;
-        }
-        .style5
-        {
-            width: 174px;
         }
         .style6
         {
@@ -29,11 +25,6 @@
       {
           height: 23px;
           width: 145px;
-      }
-      .style8
-      {
-          width: 44px;
-          font-family: Tahoma;
       }
       .style9
       {
@@ -50,7 +41,24 @@
       }
       .style12
       {
+    }
+      .style15
+      {
+          font-family: Tahoma;
+          width: 155px;
+      }
+      .style18
+      {
+          width: 26px;
+      }
+      .style19
+      {
+          width: 202px;
+      }
+      .style20
+      {
           width: 60px;
+          font-family: Tahoma;
       }
     </style>
    
@@ -69,24 +77,30 @@
         <br />
         <table align="center" cellspacing="1" class="style1">
             <tr>
-                <td class="style12">
-                    </td>
-                <td class="style11" colspan="2">
-                    Organization Name</td>
-                <td class="style5">
-                    <asp:TextBox ID="txtOrgname" runat="server" Height="23px" Width="145px"></asp:TextBox>
-                </td>
-                <td class="style7">
-                    <asp:Label ID="Label1" runat="server" CssClass="style22" Text="Label" 
-                        style="color: #CC0000"></asp:Label>
+                <td class="style12" align="center" colspan="5">
+                    <asp:Label ID="Label14" runat="server" Text="od_id "></asp:Label>
+                    <asp:Label ID="Label15" runat="server" Text="ud_id"></asp:Label>
                     </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
+                </td>
+                <td class="style11" colspan="2">
+                    Organization Name</td>
+                <td class="style19">
+                    <asp:TextBox ID="txtOrgname" runat="server" Height="23px" Width="145px"></asp:TextBox>
+                </td>
+                <td class="style7">
+                    <asp:Label ID="Label1" runat="server" CssClass="style22" style="color: #CC0000" 
+                        Text="Label"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     Organization Type</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:DropDownList ID="ddOrgtype" runat="server" Height="23px" Width="145px">
                     <asp:ListItem>Select type</asp:ListItem>
                         <asp:ListItem>Bank</asp:ListItem>
@@ -106,7 +120,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     Industry</td>
@@ -165,11 +179,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     Country</td>
-                <td class="style5">
+                <td class="style19">
                 <%--country drop--%>
                                      
                     <asp:DropDownList ID="ddCountry" runat="server" Height="23px" 
@@ -433,11 +447,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     </td>
                 <td class="style11" colspan="2">
                     State</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:DropDownList ID="ddState" runat="server" Height="23px" Width="145px">
                     </asp:DropDownList>
                 </td>
@@ -448,11 +462,11 @@
                     </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     City</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:TextBox ID="txtCity" runat="server" Height="23px" Width="145px"></asp:TextBox>
                 </td>
                 <td class="style7">
@@ -461,13 +475,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
-                <td class="style11">
+                <td class="style15">
                     Address</td>
-                <td class="style8">
+                <td class="style20">
                     Line 1:</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:TextBox ID="txtAddress1" runat="server" Height="23px" Width="145px"></asp:TextBox>
                 </td>
                 <td class="style7">
@@ -476,13 +490,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
-                <td class="style11">
+                <td class="style15">
                     &nbsp;</td>
-                <td class="style8">
+                <td class="style20">
                     Line2:</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:TextBox ID="txtAddress2" runat="server" Height="23px" Width="145px"></asp:TextBox>
                 </td>
                 <td class="style7">
@@ -491,11 +505,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     Zip-code</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:TextBox ID="txtZipcode" runat="server" Height="23px" Width="145px" 
                         MaxLength="6"></asp:TextBox>
                 </td>
@@ -508,28 +522,41 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     </td>
                 <td class="style11" colspan="2">
-                    Phone No.</td>
-                <td class="style5">
-                    <asp:TextBox ID="txtPhoneno" runat="server" Height="23px" Width="145px" 
-                        MaxLength="10"></asp:TextBox>
+                    Contact No.</td>
+                <td class="style19">
+                    <asp:TextBox ID="TextBox1" runat="server" Height="23px" Width="35px"></asp:TextBox>
+                    <asp:TextBox ID="TextBox2" runat="server" Height="23px" MaxLength="4" 
+                        Width="35px"></asp:TextBox>
+                    <asp:TextBox ID="txtcontactno" runat="server" Height="23px" Width="83px" 
+                        MaxLength="15"></asp:TextBox>
                 </td>
                 <td class="style7">
                     <asp:Label ID="Label5" runat="server" CssClass="style22" Text="Label" 
                         style="color: #CC0000"></asp:Label>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" 
-                        ControlToValidate="txtPhoneno" ErrorMessage="*enter a valid phone no." 
+                        ControlToValidate="txtcontactno" ErrorMessage="*enter a valid phone no." 
                         ValidationExpression="^([7-9]{1})([0-9]{9})$" CssClass="style9"></asp:RegularExpressionValidator>
                     </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
+                    &nbsp;</td>
+                <td class="style11" colspan="2">
+                    &nbsp;</td>
+                <td class="style19">
+                    &nbsp;</td>
+                <td class="style7">
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style11" colspan="2">
                     Website</td>
-                <td class="style5">
+                <td class="style19">
                     <asp:TextBox ID="txtWebsite" runat="server" Height="23px" Width="145px">http://www.</asp:TextBox>
                 </td>
                 <td class="style7">
@@ -538,20 +565,20 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style6" colspan="4" align="center">
                     <asp:Label ID="Label13" runat="server" style="color: #CC0000" Text="Label"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style6" align="right" colspan="2">
                     <asp:Button ID="btnSubmit" runat="server" onclick="Button1_Click" Text="Submit" 
                         Height="28px" Width="118px" />
                 </td>
-                <td class="style5">
+                <td class="style19">
                      
                     
                      
@@ -566,11 +593,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="style12">
+                <td class="style18">
                     &nbsp;</td>
                 <td class="style6" colspan="2">
                     &nbsp;</td>
-                <td class="style5">
+                <td class="style19">
                     &nbsp;</td>
                 <td class="style7">
                     &nbsp;</td>
