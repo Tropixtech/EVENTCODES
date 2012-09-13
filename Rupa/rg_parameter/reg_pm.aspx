@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="reg_pm.aspx.cs" Inherits="reg_pm" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<style type="text/css">
+    <style type="text/css">
         #form1
         {
             height: 419px;
@@ -33,17 +33,6 @@
      {
          font-family: Tahoma;
      }
-     .style9
-    {
-        width: 328px;
-        font-size: 11pt;
-        font-family: Tahoma;
-        height: 41px;
-    }
-    .style10
-    {
-        height: 41px;
-    }
      </style>
 
 </asp:Content>
@@ -52,9 +41,12 @@
     <form id="form1" runat="server">
     <asp:Panel ID="panel1" runat="server" BackColor="#CCFF99" Height="47px">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /> 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="Label1" runat="server" Font-Names="Tahoma" Font-Size="X-Large" 
             Text="Registration Parameters"></asp:Label>
+        <br />
+        <br />
+        <br />
     </asp:Panel>
         <asp:Panel ID="panel2" runat="server" BackColor="#CCFF99">
          <table style="width:71%; height: 348px; margin-left: 120px; background-color: #CCFF99; margin-top: 0px;"  >
@@ -69,13 +61,6 @@
                 </strong></span></td>--%>
         </tr>
         <tr>
-            <td class="style9">
-                </td>
-            <td class="style10">
-                <asp:HiddenField ID="HiddenField1" runat="server" />
-            </td>
-        </tr>
-        <tr>
             <td class="style6">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblMax_rg" runat="server" Text="Maximum no of registrants"></asp:Label>
@@ -87,6 +72,9 @@
                     runat="server" ControlToValidate="txtMax_rg" ErrorMessage="Enter number only" 
                     Font-Italic="True" Font-Names="Georgia" ForeColor="Red" 
                     ValidationExpression="^[0-9]{0,4}"></asp:RegularExpressionValidator>
+                &nbsp;<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="txtMax_rg" ErrorMessage="Number cannot be blank" 
+                    Font-Italic="True" Font-Names="Georgia" ForeColor="Red"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -188,7 +176,8 @@
                 &nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnEdit" runat="server" Text="Edit" Width="118px" 
                     onclick="btnEdit_Click" />
-                &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="118px" />
+                &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="118px" 
+                    onclick="btnUpdate_Click" />
 &nbsp;<asp:Button ID="btnExit" runat="server" 
                     Text="Exit" Width="118px" />
                 &nbsp;&nbsp;

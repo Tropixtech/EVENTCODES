@@ -154,6 +154,8 @@ public partial class reg_pm : System.Web.UI.Page
         SqlCommand cmd = new SqlCommand("add1", ob.cn);
         cmd.CommandType = CommandType.StoredProcedure;
 
+        //cmd.Parameters.AddWithValue("@rp_org_id", int.Parse(ViewState["orgid"].ToString()));
+
 
         SqlParameter org_id = new SqlParameter("@rp_org_id", SqlDbType.Int);
         org_id.Value = int.Parse(ViewState["orgid"].ToString());
@@ -227,26 +229,66 @@ public partial class reg_pm : System.Web.UI.Page
         btnUpdate.Visible = true;
         btnEdit.Visible = false;
 
+        
         txtMax_rg.Enabled = true;
 
-       
         rblCan_rg.Enabled = true;
         
         txtHow_many.Enabled = true;
       
-           
-       
         rblIs_waitlist.Enabled = true;
 
         rblIs_onsite.Enabled = true;
 
-       
         rblCan_rgwop.Enabled = true;
        
-           
         txtNo_of_days.Enabled = true;
        
       
       
    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+      // ob.read("update_reg", " '" + int.Parse(ViewState["orgid"].ToString()) + "','" +int.Parse(ViewState["evid"].ToString()) + "', '" + txtMax_rg.Text + "','" + rblCan_rg.SelectedValue + "','" + txtHow_many.Text + "','" + rblIs_waitlist.SelectedValue + "','" + rblIs_onsite.SelectedValue + "','" + rblCan_rgwop.SelectedValue + "','" + Convert.ToInt32(txtNo_of_days.Text) + "','"+DateTime.Now.ToLongTimeString()+"',"+6+" ");
+
+
+        SqlCommand cmd = new SqlCommand("update_reg", ob.cn);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@orgid", int.Parse(ViewState["orgid"].ToString()));
+
+        cmd.Parameters.AddWithValue("@evid", int.Parse(ViewState["evid"].ToString()));
+
+        cmd.Parameters.AddWithValue("@rmax_p", txtMax_rg.Text);
+
+        cmd.Parameters.AddWithValue("@rIs_reg", rblCan_rg.SelectedValue);
+
+        if (rblCan_rg.SelectedValue == "1")
+        {
+            cmd.Parameters.AddWithValue("@rHowmany", txtHow_many.Text);
+        }
+
+        cmd.Parameters.AddWithValue("rIsWtlistng", rblIs_waitlist.SelectedValue);
+
+        cmd.Parameters.AddWithValue("@rIsOnsite", rblIs_onsite.SelectedValue);
+
+        cmd.Parameters.AddWithValue("@rwithout", rblCan_rgwop.SelectedValue);
+        if (rblCan_rgwop.SelectedValue == "1")
+        {
+            cmd.Parameters.AddWithValue("@rNo_days", txtNo_of_days.Text);
+        }
+
+        SqlParameter rp_mdf = new SqlParameter("@rmodified", SqlDbType.DateTime);
+        rp_mdf.Value = DateTime.Now.ToLongTimeString();
+        cmd.Parameters.Add(rp_mdf);
+
+        cmd.Parameters.AddWithValue("@rmid", 6);
+
+        ob.cn.Open();
+        cmd.ExecuteNonQuery();
+        ob.cn.Close();
+
+        
+
+    }
 }
