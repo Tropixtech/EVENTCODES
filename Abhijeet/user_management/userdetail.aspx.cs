@@ -13,6 +13,11 @@ public partial class userdetail : System.Web.UI.Page
     {
         Panel3.Visible = false;
         ob1=new Class2();
+        //these codes are to show the organisation name in the top of the page by fetching data from organization_details table.
+        //ob1.read("fetch_od_id", "'" + Session["email"] + "'");
+        //int org_id = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["od_id"].ToString());
+        //ob1.read("fetch_org_name", ""+ org_id +"");
+        //lblorg.Text = ob1.ds.Tables[0].Rows[0]["od_name"].ToString();
        
         rbtnstatus.Items[0].Selected = true;
         if (!IsPostBack)
@@ -28,7 +33,7 @@ public partial class userdetail : System.Web.UI.Page
         ob1.read1("fetch_userid");
         if (ob1.ds.Tables[0].Rows.Count == 0)
         {
-            id = 100;
+            id = 500;
             return id;
         }
         else
@@ -83,7 +88,7 @@ public partial class userdetail : System.Web.UI.Page
         try
         {
             ob1.read("fetch_od_id", "'" + Session["email"] + "'");
-            int orgid = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["od_id"].ToString());
+            int orgid = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_org_id"].ToString());
             ob1.read("fetch_all", "'" + orgid + "'");
             GridView1.DataSource = ob1.ds;
             GridView1.DataBind();
@@ -167,8 +172,10 @@ public partial class userdetail : System.Web.UI.Page
    
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
+       
         try
         {
+             
            
             var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             int a = autoid();
@@ -183,10 +190,11 @@ public partial class userdetail : System.Web.UI.Page
             else
             {
                 ob1.read("fetch_od_id", "'" + Session["email"] + "'");
-                int orgidd = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["od_id"].ToString());
+                int orgidd = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_org_id"].ToString());
 
-                  ob1.read("insert_user","'"+orgidd+"','" + a + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',NULL,NULL");
+                ob1.read("insert_user", "'" + a + "','" + orgidd + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',NULL,NULL");
                     lblmsg.Text = "Data Added Successfully";
+                    show1();
                  
             }
         }
@@ -206,6 +214,7 @@ public partial class userdetail : System.Web.UI.Page
     {
         try
         {
+            
             if (e.Row.RowType == DataControlRowType.DataRow && ((e.Row.RowState & DataControlRowState.Edit) > 0))
             {
 
@@ -248,12 +257,16 @@ public partial class userdetail : System.Web.UI.Page
 
 
             }
+
         }
         catch (Exception ex)
         {
             lblmsg1.Text = ex.Message;
         }
+         
     }
+
+    
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("event_home.aspx");
@@ -263,5 +276,16 @@ public partial class userdetail : System.Web.UI.Page
     {
         GridView1.PageIndex = e.NewPageIndex;
         show1();
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        txtfirst.Text = null;
+        txtmiddle.Text = null;
+        txtlast.Text = null;
+        txtemail.Text = null;
+        txtpass.Text = null;
+        lblmsg.Text = null;
+        txtfirst.Focus();
+        Panel3.Visible = true;
     }
 }
