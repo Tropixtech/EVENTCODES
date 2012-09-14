@@ -1,0 +1,78 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="dgn2.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+</head>
+<body >
+   
+    <div>
+
+       <form id="form2" runat="server">
+
+        <div id="templatemo_header_wrapper">
+
+	<div id="templatemo_header">
+    
+   		<div id="site_title">
+            <h1><a href="#" target="_parent">
+            	<img src="images/logo.png" alt="CSS Templates" 
+                    style="height: 64px; width: 154px" />
+                <span>events</span>
+            </a></h1>
+        </div>
+        
+         <div id="templatemo_menu">
+            <ul>
+                <li><a href="#" class="current">Home</a></li>
+                <li><a href="#" target="_parent">Admin</a></li>
+                <li><a href="#" target="_parent">User</a></li>
+                <li><a href="#" target="_parent">Events</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>    	
+        </div> <!-- end of templatemo_menu -->
+        
+    	<div class="cleaner"></div>
+    </div> <!-- end of templatemo_header -->
+
+</div> 
+<!-- end of templatemo_header_wrapper -->
+
+<div id="templatemo_content_wrapper">
+
+    <!-- end of content -->
+
+    <div> <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder></div>
+    <!-- end of sidebar -->
+    
+  	<div class="cleaner"></div>    
+
+</div> <div id="templatemo_content_wrapper_bottom"></div> <!-- end of content_wrapper -->
+
+<div id="templatemo_footer">
+
+   			<ul class="footer_menu">
+                <li><a href="#">Home</a></li>
+                <li>Admin</li>
+                <li><a href="http://www.flashmo.com" target="_parent">U</a><a 
+                        href="http://www.flashmo.com">ser</a></li>
+                <li>Events</li>
+                <li class="last_menu"><a href="#">Contact</a></li>
+            </ul>
+            
+            Copyright © 2012.tropix technologies |&nbsp;</div> 
+<!-- end of templatemo_footer -->
+
+    </form>
+    </div>
+  
+</body>
+</html>
