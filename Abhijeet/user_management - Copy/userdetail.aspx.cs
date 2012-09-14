@@ -30,7 +30,7 @@ public partial class userdetail : System.Web.UI.Page
 
     public int autoid()
     {
-        ob1.read1("fetch_userid");
+        ob1.read1("ud_fetch_userid");
         if (ob1.ds.Tables[0].Rows.Count == 0)
         {
             id = 500;
@@ -49,11 +49,11 @@ public partial class userdetail : System.Web.UI.Page
             int v = 11;
             int g = 1;
             Label userid = (Label)GridView1.Rows[GridView1.SelectedIndex].FindControl("lbluserid");
-            ob1.read("fetch_status","'"+Session["email"]+"'");
+            ob1.read("ud_fetch_status","'"+Session["email"]+"'");
             if (v == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
             {
-                ob1.read("update_user_admin","'"+Convert.ToInt32(v)+"','"+userid.Text+"'");
-                ob1.read("update_admin_user", "'" + Convert.ToInt32(g) + "','" + Session["email"] + "'");
+                ob1.read("ud_update_user_admin","'"+Convert.ToInt32(v)+"','"+userid.Text+"'");
+                ob1.read("ud_update_admin_user", "'" + Convert.ToInt32(g) + "','" + Session["email"] + "'");
                 show1();
 
                 Response.Write("<script>alert('user has been changed to admin')</script>");
@@ -72,7 +72,7 @@ public partial class userdetail : System.Web.UI.Page
     {
 
         int st = 11;
-        ob1.read("fetch_status_admin", "'" + Session["email"] + "'");
+        ob1.read("ud_fetch_status_admin", "'" + Session["email"] + "'");
         if (st == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
         {
             Panel3.Visible = true;
@@ -87,9 +87,9 @@ public partial class userdetail : System.Web.UI.Page
     {
         try
         {
-            ob1.read("fetch_od_id", "'" + Session["email"] + "'");
+            ob1.read("ud_fetch_od_id", "'" + Session["email"] + "'");
             int orgid = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_org_id"].ToString());
-            ob1.read("fetch_all", "'" + orgid + "'");
+            ob1.read("ud_fetch_all", "'" + orgid + "'");
             GridView1.DataSource = ob1.ds;
             GridView1.DataBind();
         }
@@ -100,43 +100,73 @@ public partial class userdetail : System.Web.UI.Page
     }
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        
-        GridView1.EditIndex = e.NewEditIndex;
-        show1();
-        
+        //try
+        //{
+        //    int st1 = 11;
+        //    ob1.read("ud_fetch_status_admin", "'" + Session["email"] + "'");
+        //    if (st1 == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
+        //    {
+
+                GridView1.EditIndex = e.NewEditIndex;
+                show1();
+            //}
+            //else
+            //{
+            //    GridView1.EditIndex = -1;
+            //    lblmsg1.Text = "Admin can only edit user details";
+            //    show1();
+            //}
+        //}
+        //catch (Exception ex)
+        //{
+        //    lblmsg1.Text = ex.Message;
+        //}
     }
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
+            int st1 = 11;
+            
         try
         {
-
-            var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Label userid = (Label)GridView1.Rows[e.RowIndex].FindControl("lbluserid");
-            TextBox fnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtfirst");
-            TextBox mnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtmiddle");
-            TextBox lnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtlast");
-            TextBox email = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtemail");
-            TextBox pass = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtpass");
-            Label crdate = (Label)GridView1.Rows[e.RowIndex].FindControl("lblcreate");
-            Label deactiv = (Label)GridView1.Rows[e.RowIndex].FindControl("lbldeactive");
-            RadioButtonList status = GridView1.Rows[e.RowIndex].FindControl("rbtlstatus") as RadioButtonList;
-
-            if (status.SelectedValue == "1")
-            {
-                ob1.read("update_active", " " + userid.Text + ",'" + fnme.Text + "','" + mnme.Text + "','" + lnme.Text + "','" + email.Text + "','" + pass.Text + "','" + createdTime + "','" + Convert.ToInt32(status.SelectedValue) + "'");
+            
+                ob1.read("ud_fetch_status_admin", "'" + Session["email"] + "'");
+                if (st1 == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
                 {
-                    GridView1.EditIndex = -1;
-                    show1();
+                    var createdTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    Label userid = (Label)GridView1.Rows[e.RowIndex].FindControl("lbluserid");
+                    TextBox fnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtfirst");
+                    TextBox mnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtmiddle");
+                    TextBox lnme = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtlast");
+                    TextBox email = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtemail");
+                    TextBox pass = (TextBox)GridView1.Rows[e.RowIndex].FindControl("txtpass");
+                    Label crdate = (Label)GridView1.Rows[e.RowIndex].FindControl("lblcreate");
+                    Label deactiv = (Label)GridView1.Rows[e.RowIndex].FindControl("lbldeactive");
+                    RadioButtonList status = GridView1.Rows[e.RowIndex].FindControl("rbtlstatus") as RadioButtonList;
+                    ob1.read("ud_fetch_uid_email","'"+Session["email"]+"'");
+                   int md=Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_id"].ToString());
+
+                    if (status.SelectedValue == "1")
+                    {
+                        ob1.read("ud_update_active", " " + userid.Text + ",'" + fnme.Text + "','" + mnme.Text + "','" + lnme.Text + "','" + email.Text + "','" + pass.Text + "','" + createdTime + "',"+ md +",'" + Convert.ToInt32(status.SelectedValue) + "'");
+                        {
+                            GridView1.EditIndex = -1;
+                            show1();
+                        }
+                    }
+                    else
+                    {
+                        ob1.read("ud_update_deactive", " " + userid.Text + ",'" + fnme.Text + "','" + mnme.Text + "','" + lnme.Text + "','" + email.Text + "','" + pass.Text + "','" + createdTime + "'," + md + ",'" + Convert.ToInt32(status.SelectedValue) + "'");
+                        {
+                            GridView1.EditIndex = -1;
+                            show1();
+                        }
+                    }
                 }
-            }
-            else
-            {
-                ob1.read("update_deactive", " " + userid.Text + ",'" + fnme.Text + "','" + mnme.Text + "','" + lnme.Text + "','" + email.Text + "','" + pass.Text + "','" + createdTime + "','" + Convert.ToInt32(status.SelectedValue) + "'");
+                else
                 {
-                    GridView1.EditIndex = -1;
-                    show1();
+                    lblmsg1.Text = "";
+                    Response.Write("<script>alert('Admin can only edit his users')</script>");
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -147,10 +177,19 @@ public partial class userdetail : System.Web.UI.Page
     {
        try
         {
+           int st2 = 11;
+           ob1.read("ud_fetch_status_admin", "'" + Session["email"] + "'");
+          if (st2 == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))
+            {
             Label userid = (Label)GridView1.Rows[e.RowIndex].FindControl("lbluserid");
-            ob1.read("del_all", "'" + userid.Text + "'");
-                 
-                show1(); 
+            ob1.read("ud_del_all", "'" + userid.Text + "'");
+
+            show1();
+            }
+           else
+            {
+            lblmsg1.Text = "Admin can only delete users";
+             }
         }
         catch (Exception ex)
         {
@@ -182,17 +221,19 @@ public partial class userdetail : System.Web.UI.Page
             int b = 1;
             int c = 0;
             Panel3.Visible = true;
-            ob1.read("fetch_email", "'" + txtemail.Text + "'");
+            ob1.read("ud_fetch_email", "'" + txtemail.Text + "'");
             if (ob1.ds.Tables[0].Rows.Count > 0)
             {
                 lblmsg.Text = "Email Id Already Exist";
             }
             else
             {
-                ob1.read("fetch_od_id", "'" + Session["email"] + "'");
+                ob1.read("ud_fetch_od_id", "'" + Session["email"] + "'");
                 int orgidd = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_org_id"].ToString());
+                ob1.read("ud_fetch_uid_email", "'" + Session["email"] + "'");
+                int cr = Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_id"].ToString());
 
-                ob1.read("insert_user", "'" + a + "','" + orgidd + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','" + b + "',NULL,NULL");
+                ob1.read("ud_insert_user", "'" + a + "','" + orgidd + "','" + txtfirst.Text + "','" + txtmiddle.Text + "','" + txtlast.Text + "','" + txtemail.Text + "','" + txtpass.Text + "','" + createdTime + "','"+cr+"',NULL,'" + b + "',NULL,NULL");
                     lblmsg.Text = "Data Added Successfully";
                     show1();
                  

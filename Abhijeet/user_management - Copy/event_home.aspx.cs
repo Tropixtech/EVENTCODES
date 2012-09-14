@@ -17,7 +17,7 @@ public partial class event_home : System.Web.UI.Page
     public int a = 11;
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        ob1.read("fetch_status_admin","'"+Session["email"]+"'");
+        ob1.read("ud_fetch_status_admin","'"+Session["email"]+"'");
         if (ob1.ds.Tables[0].Rows.Count > 0)
         {
             if (a == Convert.ToInt32(ob1.ds.Tables[0].Rows[0]["ud_status"].ToString()))

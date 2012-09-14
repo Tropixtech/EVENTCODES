@@ -34,7 +34,11 @@
                   document.getElementById("<%=txtpass.ClientID %>").focus();
                   return false;
               }
-
+              if (document.getElementById("<%=txtconfirm.ClientID %>").value != document.getElementById("<%=txtpass.ClientID %>").value) {
+                  alert("Password Not Match");
+                  document.getElementById("<%=txtconfirm.ClientID %>").focus();
+                  return false;
+              }
 
           }
           
@@ -80,16 +84,15 @@
                                 <td  >
                                     <asp:GridView ID="GridView1" runat="server" class="mGrid"
                                         style="font-family: Tahoma; font-size: 11pt" AllowSorting="True" 
-                                        AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
-                                        BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" 
+                                        AutoGenerateColumns="False" CellPadding="4" 
                                         Width="824px" onrowcancelingedit="GridView1_RowCancelingEdit" 
                                         onrowdeleting="GridView1_RowDeleting" onrowediting="GridView1_RowEditing" 
                                         onrowupdating="GridView1_RowUpdating" 
                                         onselectedindexchanged="GridView1_SelectedIndexChanged1" Height="16px" 
                                         DataKeyNames="ud_id" onrowdatabound="GridView1_RowDataBound1" 
                                         AllowPaging="True" onpageindexchanging="GridView1_PageIndexChanging" 
-                                        PageSize="5">
-                                        <AlternatingRowStyle BackColor="#DCDCDC" />
+                                        PageSize="5" BackColor="White" BorderColor="#CC9966" BorderStyle="None" 
+                                        BorderWidth="1px">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Userid">
                                                 <ItemTemplate>
@@ -180,15 +183,15 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
-                                        <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                        <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
-                                        <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
-                                        <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
-                                        <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                                        <SortedAscendingHeaderStyle BackColor="#0000A9" />
-                                        <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                                        <SortedDescendingHeaderStyle BackColor="#000065" />
+                                        <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                        <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                        <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="White" ForeColor="#330099" />
+                                        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                        <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                        <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                        <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                        <SortedDescendingHeaderStyle BackColor="#7E0000" />
                                     </asp:GridView>
                                     <asp:Button ID="btncreate" runat="server" onclick="btncreate_Click" 
                                         style="font-family: Tahoma; font-size: 11pt" Text="Create User" />
@@ -252,6 +255,16 @@
                                 <td colspan="5">
                                     <asp:TextBox ID="txtpass" runat="server" Height="23px" Width="145px" 
                                         TextMode="Password" ToolTip="Please enter a secure password"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Label ID="Label16" runat="server" 
+                                        style="font-family: Tahoma; font-size: 11pt" Text="Confirm Password"></asp:Label>
+                                </td>
+                                <td colspan="5">
+                                    <asp:TextBox ID="txtconfirm" runat="server" Height="23px" TextMode="Password" 
+                                        ToolTip="Please enter a secure password" Width="145px"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
