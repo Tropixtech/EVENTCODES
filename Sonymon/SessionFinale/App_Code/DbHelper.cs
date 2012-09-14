@@ -42,7 +42,6 @@ public class DbHelper
     public void Connect()
     {
         con = new SqlConnection(ConfigurationManager.ConnectionStrings["cname"].ToString());
-        ds = new DataSet();
-        
+        ds = new DataSet();  
     }
 }

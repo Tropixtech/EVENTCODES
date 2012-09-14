@@ -5,8 +5,6 @@
     <script type="text/javascript">
 
         function ConfirmationBox(username) {
-
-
             var result = confirm('Are you sure you want to delete ' + username + ' Details?');
             if (result) {
 
@@ -26,10 +24,6 @@
         {
             height: 26px;
         }
-        .style14
-        {
-            height: 90px;
-        }
         .style15
         {
             width: 96px;
@@ -39,31 +33,9 @@
             width: 127px;
             height: 26px;
         }
-        .style30
-    {
-        width: 98px;
-    }
-    .style32
-    {
-        width: 213px;
-    }
-    .style36
+        .style36
     {
         height: 27px;
-    }
-    .style37
-    {
-        height: 30px;
-        width: 98px;
-    }
-    .style39
-    {
-        height: 30px;
-        width: 213px;
-    }
-    .style40
-    {
-        height: 30px;
     }
     </style>
 </asp:Content>
@@ -74,7 +46,7 @@
     <tr>
         <td class="style3" colspan="2">
             &nbsp;</td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -84,7 +56,7 @@
             <asp:Label ID="Label13" runat="server" Font-Names="Tahoma" Font-Size="X-Large" 
                 Text="Add Session"></asp:Label>
         </td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -92,7 +64,7 @@
     <tr>
         <td class="style3" colspan="2">
             &nbsp;</td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -102,9 +74,15 @@
             <asp:Label ID="Label1" runat="server" Text="Title" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style13">
+        <td colspan="2" class="style13">
             <asp:TextBox ID="txtTitle" runat="server" Font-Names="Tahoma" Height="23px" 
-                Width="145px"></asp:TextBox>
+                Width="145px" AutoPostBack="True" ontextchanged="txtTitle_TextChanged"></asp:TextBox>
+            <asp:Label ID="lblTitleRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Title can not be blank"></asp:Label>
+            <asp:Label ID="lblTitleAlreadyExist" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Title already exists"></asp:Label>
         </td>
         <td class="style13">
             </td>
@@ -114,62 +92,42 @@
             <asp:Label ID="Label2" runat="server" Text="Description" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style36">
+        <td colspan="2" class="style36">
             <asp:TextBox ID="txtDescription" runat="server" Font-Names="Tahoma" 
-                Height="23px" Width="145px"></asp:TextBox>
+                Height="62px" Width="221px" TextMode="MultiLine"></asp:TextBox>
+            <asp:Label ID="lblDescriptionRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Description can not be blank"></asp:Label>
         </td>
         <td class="style36">
             </td>
     </tr>
     <tr>
-        <td class="style14" colspan="2" rowspan="2">
-            <asp:Label ID="Label9" runat="server" Text="Moderator" Font-Names="Tahoma" 
+        <td class="style13" colspan="2">
+            <asp:Label ID="Label9" runat="server" Text="Moderator`s Name" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td class="style30">
-            <asp:Label ID="lblMdtrFName" runat="server" Text="First Name" 
-                Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
+        <td class="style13" colspan="2">
+            <asp:TextBox ID="txtMdtrName" runat="server" Font-Names="Tahoma" Height="23px" 
+                Width="145px"></asp:TextBox>
+            <asp:Label ID="lblMdtrNameRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Please enter the Moderator`s name"></asp:Label>
         </td>
-        <td colspan="2">
-            <asp:Label ID="lblMdtrMName" runat="server" Font-Names="Tahoma" 
-                Font-Size="11pt" Text="Middle Name"></asp:Label>
+        <td class="style13">
         </td>
-        <td>
-            <asp:Label ID="lblMdtrLName" runat="server" Font-Names="Tahoma" 
-                Font-Size="11pt" Text="last Name"></asp:Label>
-        </td>
-        <td class="style32">
-        </td>
-        <td class="style14" rowspan="2">
-            </td>
     </tr>
-        <tr>
-            <td class="style37">
-                <asp:TextBox ID="txtMdtrFName" runat="server" Font-Names="Tahoma" Height="23px" 
-                    Width="145px"></asp:TextBox>
-            </td>
-            <td class="style40" colspan="2">
-                <asp:TextBox ID="txtMdtrMName" runat="server" Font-Names="Tahoma" Height="23px" 
-                    Width="145px"></asp:TextBox>
-            </td>
-            <td class="style40">
-                <asp:TextBox ID="txtMdtrLName" runat="server" Font-Names="Tahoma" Height="23px" 
-                    Width="145px"></asp:TextBox>
-            </td>
-            <td class="style39">
-            </td>
-        </tr>
     <tr>
         <td class="style13" colspan="2">
             <asp:Label ID="Label3" runat="server" Text="Maximum number of attendees" 
                 Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style13">
+        <td colspan="2" class="style13">
             <asp:TextBox ID="txtNoAttendees" runat="server" Font-Names="Tahoma" 
                 Height="23px" Width="145px"></asp:TextBox>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-                ControlToValidate="txtNoAttendees" ErrorMessage="Enter Number only" 
-                ValidationExpression="[0-9]+" ForeColor="#CC0000"></asp:RegularExpressionValidator>
+            <asp:Label ID="lblNoOfAtndsRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Please mention the maximum no. of attendees"></asp:Label>
         </td>
         <td class="style13">
             </td>
@@ -179,13 +137,17 @@
             <asp:Label ID="Label4" runat="server" Text="Presenters" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style13">
+        <td colspan="2" class="style13">
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+                ControlToValidate="txtNoAttendees" ErrorMessage="Enter Number only" 
+                Font-Italic="True" Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                ValidationExpression="[0-9]+"></asp:RegularExpressionValidator>
             </td>
         <td class="style13">
             </td>
     </tr>
     <tr>
-        <td class="style3" colspan="7">
+        <td class="style3" colspan="4">
             <asp:GridView ID="gvPresenter" DataKeyNames="pr_id,pr_name"   runat="server" AlternatingRowStyle-CssClass="alt" 
                 AutoGenerateColumns="False" CssClass="mGrid" 
                 GridLines="None" HeaderStyle-BackColor="#61A6F8" HeaderStyle-Font-Bold="true" 
@@ -196,7 +158,7 @@
                 ShowFooter="True" Width="575px" onrowdatabound="gvPresenter_RowDataBound">
                 <AlternatingRowStyle CssClass="alt" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Speaker Name">
+                    <asp:TemplateField HeaderText="Presenter`s Name">
                         <EditItemTemplate>
                             <asp:TextBox ID="txtName" runat="server" Text='<%#Eval("pr_name") %>' />
                         </EditItemTemplate>
@@ -233,22 +195,26 @@
                         </EditItemTemplate>
                         <ItemTemplate>
                             <asp:ImageButton ID="imgbtnEdit" runat="server" CommandName="Edit" 
-                                Height="20px" ImageUrl="~/Images/Edit.jpg" ToolTip="Edit" Width="20px" 
-                                Visible="False" />
+                                Height="20px" ImageUrl="~/Images/Edit.jpg" ToolTip="Edit" Width="20px" />
                             <asp:ImageButton ID="imgbtnDelete" runat="server" CommandName="Delete" 
                                 Height="20px" ImageUrl="~/Images/delete.jpg" Text="Edit" ToolTip="Delete" 
-                                Width="20px" Visible="False" />
+                                Width="20px" />
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:ImageButton ID="imgbtnAdd" runat="server" CommandName="AddNew" 
-                                Height="30px" ImageUrl="~/Images/AddNewitem.jpg" ToolTip="Add new User" 
+                                Height="30px" ImageUrl="~/Images/AddNewitem.jpg" ToolTip="Add" 
                                 ValidationGroup="validaiton" Width="30px" />
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>
                 <HeaderStyle BackColor="#61A6F8" Font-Bold="True" ForeColor="White" />
             </asp:GridView>
-            <asp:Label ID="lblresult" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="lblPRNameAlreadyExist" runat="server" 
+                Text="Presenter`s name already exists" Font-Italic="True" Font-Names="Georgia" 
+                Font-Size="12px" ForeColor="#CC0000"></asp:Label>
+            <asp:Label ID="lblPRRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Name or Topic is left blank"></asp:Label>
         </td>
         <td>
             &nbsp;</td>
@@ -256,7 +222,7 @@
     <tr>
         <td class="style3" colspan="2">
             &nbsp;</td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -266,14 +232,17 @@
             <asp:Label ID="Label10" runat="server" Text="Prior paper submission" 
                 Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style13">
+        <td colspan="2" class="style13">
             <asp:DropDownList ID="ddlPriorPaperSubm" runat="server" Height="23px" 
                 Width="145px">
                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                 <asp:ListItem>Yes</asp:ListItem>
                 <asp:ListItem>No</asp:ListItem>
             </asp:DropDownList>
-            <asp:Label ID="lblpriorPaperSubmValidation" runat="server" Text="Label"></asp:Label>
+           
+            <asp:Label ID="lblPaperSubmRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Please select one"></asp:Label>
         </td>
         <td class="style13">
             </td>
@@ -283,11 +252,11 @@
             <asp:Label ID="Label5" runat="server" Text="Sharing Options" 
                 Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
         </td>
-        <td class="style16" colspan="2">
+        <td class="style16">
             <asp:Label ID="Label11" runat="server" Text="Organizer" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td class="style13" colspan="3">
+        <td class="style13">
             <asp:RadioButtonList ID="rblOrganizer" runat="server" 
                 RepeatDirection="Horizontal" Font-Names="Tahoma" Font-Size="11pt">
                 <asp:ListItem Selected="True">Yes</asp:ListItem>
@@ -298,11 +267,11 @@
             &nbsp;</td>
     </tr>
     <tr>
-        <td class="style16" colspan="2">
+        <td class="style16">
             <asp:Label ID="Label12" runat="server" Text="Co-Presenter" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td class="style13" colspan="3">
+        <td class="style13">
             <asp:RadioButtonList ID="rblCopresenter" runat="server" 
                 RepeatDirection="Horizontal" Font-Names="Tahoma" Font-Size="11pt">
                 <asp:ListItem Selected="True">Yes</asp:ListItem>
@@ -311,11 +280,11 @@
         </td>
     </tr>
     <tr>
-        <td class="style16" colspan="2">
+        <td class="style16">
             <asp:Label ID="Label13b" runat="server" Text="Public" Font-Names="Tahoma" 
                 Font-Size="11pt"></asp:Label>
         </td>
-        <td class="style13" colspan="3">
+        <td class="style13">
             <asp:RadioButtonList ID="rblPublic" runat="server" 
                 RepeatDirection="Horizontal" Font-Names="Tahoma" Font-Size="11pt">
                 <asp:ListItem Selected="True">Yes</asp:ListItem>
@@ -328,13 +297,15 @@
             <asp:Label ID="Label6" runat="server" Text="Additional Requirements" 
                 Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5">
-            &nbsp;</td>
+        <td colspan="2">
+            <asp:CheckBox ID="cbAdditionalRequirement" runat="server" AutoPostBack="True" 
+                oncheckedchanged="cbAdditionalRequirement_CheckedChanged" />
+        </td>
         <td>
             &nbsp;</td>
     </tr>
     <tr>
-        <td class="style3" colspan="7">
+        <td class="style3" colspan="4">
 
 
 
@@ -392,21 +363,27 @@
                         </EditItemTemplate>
                         <ItemTemplate>
                             <asp:ImageButton ID="imgbtnEdit0" runat="server" CommandName="Edit" 
-                                Height="20px" ImageUrl="~/Images/Edit.jpg" ToolTip="Edit" Width="20px" 
-                                Visible="False" />
+                                Height="20px" ImageUrl="~/Images/Edit.jpg" ToolTip="Edit" Width="20px" />
                             <asp:ImageButton ID="imgbtnDelete0" runat="server" CommandName="Delete" 
                                 Height="20px" ImageUrl="~/Images/delete.jpg" Text="Edit" ToolTip="Delete" 
-                                Width="20px" Visible="False" />
+                                Width="20px" />
                         </ItemTemplate>
                         <FooterTemplate>
                             <asp:ImageButton ID="imgbtnAdd0" runat="server" CommandName="AddNew" 
-                                Height="30px" ImageUrl="~/Images/AddNewitem.jpg" ToolTip="Add new User" 
+                                Height="30px" ImageUrl="~/Images/AddNewitem.jpg" ToolTip="Add" 
                                 ValidationGroup="validaiton" Width="30px" />
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>
                 <HeaderStyle BackColor="#61A6F8" Font-Bold="True" ForeColor="White" />
             </asp:GridView>
+
+
+
+
+            <asp:Label ID="lblARRequired" runat="server" Font-Italic="True" 
+                Font-Names="Georgia" Font-Size="12px" ForeColor="#CC0000" 
+                Text="Equipment can not be blank"></asp:Label>
 
 
 
@@ -420,7 +397,7 @@
             <asp:Label ID="Label7" runat="server" Text="Price for Attending" 
                 Font-Names="Tahoma" Font-Size="11pt"></asp:Label>
         </td>
-        <td colspan="5" class="style13">
+        <td colspan="2" class="style13">
             <asp:RadioButtonList ID="rblPriceAttend" runat="server" 
                 RepeatDirection="Horizontal" Font-Names="Tahoma" Font-Size="11pt">
                 <asp:ListItem Selected="True">Yes</asp:ListItem>
@@ -433,13 +410,13 @@
     <tr>
         <td class="style3" colspan="2">
             &nbsp;</td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>
     </tr>
     <tr>
-        <td class="style3" colspan="7">
+        <td class="style3" colspan="4">
             &nbsp;</td>
         <td>
             &nbsp;</td>
@@ -447,7 +424,7 @@
     <tr>
         <td class="style12" colspan="2">
             </td>
-        <td colspan="5" class="style12">
+        <td colspan="2" class="style12">
             <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
         </td>
         <td class="style12">
@@ -464,7 +441,7 @@
                 onclick="btnSubmit_Click" Font-Names="Tahoma" Height="28px" 
                 Width="118px" />
         </td>
-        <td colspan="5">
+        <td colspan="2">
             &nbsp;</td>
         <td>
             &nbsp;</td>

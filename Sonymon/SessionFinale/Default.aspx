@@ -2,7 +2,19 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
 
+        function ConfirmationBox(name) {
+            var result = confirm('Are you sure you want to delete ' + name + ' Details?');
+            if (result) {
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:Panel ID="pnlDefault" runat="server" BackColor="#CCFF99">
@@ -52,7 +64,8 @@
                 <asp:GridView ID="gvSession" runat="server" AutoGenerateColumns="False" 
                     CssClass="mGrid" onrowcommand="gvSession_RowCommand" 
                     onrowdeleting="gvSession_RowDeleting" DataKeyNames="ss_id" 
-                    onrowediting="gvSession_RowEditing" >
+                    onrowediting="gvSession_RowEditing" 
+                    onrowdatabound="gvSession_RowDataBound" >
                     <Columns>
 
                         <%--<asp:TemplateField HeaderText="Moderator">
@@ -65,7 +78,7 @@
 
 
                         <asp:BoundField DataField="ss_title" HeaderText="Title" />
-                        <asp:BoundField DataField="ss_mdtr_fname" HeaderText="Moderator" />
+                        <asp:BoundField DataField="ss_mdtr_name" HeaderText="Moderator" />
                         <asp:TemplateField HeaderText="Paper Submission">
                             <ItemTemplate>
                                 <%#PaperSubmissionStatus(int.Parse(DataBinder.Eval(Container.DataItem,"ss_prior_paper_subm" ).ToString()))%>
