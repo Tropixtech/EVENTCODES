@@ -28,7 +28,7 @@ public partial class reg_pm : System.Web.UI.Page
 
             //int org_id = int.Parse(Session["org_id"].ToString());
             //int ev_id = int.Parse(Session["ev_id"].ToString());
-            int org_id= 2;
+            int org_id= 4;
             int ev_id = 1;
 
             ViewState["orgid"] = org_id;
@@ -46,6 +46,7 @@ public partial class reg_pm : System.Web.UI.Page
         da.Fill(ds);
         btnSave.Visible = false;
         btnUpdate.Visible = false;
+        btnReset.Visible = false;
 
         if (ds.Tables[0].Rows.Count > 0)
         {
@@ -88,11 +89,12 @@ public partial class reg_pm : System.Web.UI.Page
                 days_txtbx.Visible = false;
             }
 
-        }
+        }                                                                                                                                                                                                                                                                                                                                                                                                                        
         else 
         {
             btnSave.Visible = true;
             btnEdit.Visible = false;
+            btnReset.Visible = true;
          }
     }
 
@@ -155,6 +157,9 @@ public partial class reg_pm : System.Web.UI.Page
         cmd.CommandType = CommandType.StoredProcedure;
 
         //cmd.Parameters.AddWithValue("@rp_org_id", int.Parse(ViewState["orgid"].ToString()));
+        
+
+
 
 
         SqlParameter org_id = new SqlParameter("@rp_org_id", SqlDbType.Int);
@@ -228,6 +233,7 @@ public partial class reg_pm : System.Web.UI.Page
         btnSave.Visible = false;
         btnUpdate.Visible = true;
         btnEdit.Visible = false;
+        btnReset.Visible = true;
 
         
         txtMax_rg.Enabled = true;
@@ -290,5 +296,11 @@ public partial class reg_pm : System.Web.UI.Page
 
         
 
+    }
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        txtMax_rg.Text = "";
+        txtHow_many.Text = "";
+        txtNo_of_days.Text = "";
     }
 }

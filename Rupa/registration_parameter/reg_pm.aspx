@@ -37,9 +37,13 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+    <asp:Panel ID="Panel3" runat="server" BackColor="#CCFF99">
+   
     <form id="form1" runat="server">
-    <asp:Panel ID="panel1" runat="server" BackColor="#CCFF99" Height="47px">
+
+
+    <asp:Panel ID="panel1" runat="server" BackColor="#CCFF99" Height="47px" 
+        ToolTip="save here">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /> 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Label ID="Label1" runat="server" Font-Names="Tahoma" Font-Size="X-Large" 
@@ -67,7 +71,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtMax_rg" runat="server" CssClass="style7" Height="23px" 
-                    Width="48px"></asp:TextBox>
+                    Width="48px" ToolTip="enter registants here"></asp:TextBox>
                 <span class="style8">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><asp:RegularExpressionValidator ID="RegularExpressionValidator1" 
                     runat="server" ControlToValidate="txtMax_rg" ErrorMessage="Enter number only" 
                     Font-Italic="True" Font-Names="Georgia" ForeColor="Red" 
@@ -172,14 +176,15 @@
                 <%--<asp:Button ID="btnUpdate" runat="server" onclick="btnUpdate_Click" 
                     Text="update" Width="118px" />--%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnSave" runat="server" Text="Save" Width="118px" 
-                    onclick="btnSave_Click" />
-                &nbsp;&nbsp;&nbsp;
-                <asp:Button ID="btnEdit" runat="server" Text="Edit" Width="118px" 
-                    onclick="btnEdit_Click" />
+                    onclick="btnSave_Click" ToolTip="save here" />
+                &nbsp; &nbsp;<asp:Button ID="btnReset" runat="server" onclick="btnReset_Click" 
+                    Text="Reset" Width="118px" ToolTip="reset here" />
+&nbsp;&nbsp;<asp:Button ID="btnEdit" runat="server" onclick="btnEdit_Click" Text="Edit" 
+                    Width="118px" ToolTip="edit here" />
                 &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="118px" 
-                    onclick="btnUpdate_Click" />
+                    onclick="btnUpdate_Click" ToolTip="update here" />
 &nbsp;<asp:Button ID="btnExit" runat="server" 
-                    Text="Exit" Width="118px" />
+                    Text="Exit" Width="118px" ToolTip="go to back" />
                 &nbsp;&nbsp;
             </td>
         </tr>
@@ -235,5 +240,6 @@
 
 
     </form>
+     </asp:Panel>
 </asp:Content>
 
