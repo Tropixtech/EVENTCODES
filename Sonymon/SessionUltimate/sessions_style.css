@@ -4,11 +4,7 @@
 }
 body {
 	font: 11px Tahoma;
-<<<<<<< HEAD
 	
-=======
-	background-color: #F7F7E9;
->>>>>>> c4fda4394670306da9f9c0594f25340b18a5842d
 }
 h1 {
     font: bold 32px Times;
@@ -24,11 +20,7 @@ h1 {
 .mGrid { background-color: #fff; margin: 10px 10px 10px 2px; 
 border: solid 1px #525252; border-collapse:collapse;  }
     .mGrid td { padding: 2px;  padding-left :20px; color: #717171; text-align:center;  font-family:Tahoma; text-align:left;}
-<<<<<<< HEAD
     .mGrid th { padding: 4px 2px;  padding-left:20px; color: #fff;text-align:left; background: #9ACD32 url(~\Images\grd_head.png) repeat-x top; border-bottom:solid 1px #525252; font-size: 1.1em;font-family:Tahoma; }
-=======
-    .mGrid th { padding: 4px 2px; color: #fff; background: #9ACD32 url(~\Images\grd_head.png) repeat-x top; border-left: solid 1px #525252; border-bottom:solid 1px #525252; font-size: 1.1em;font-family:Tahoma; }
->>>>>>> c4fda4394670306da9f9c0594f25340b18a5842d
     .mGrid .alt { background: #fcfcfc url(~\Images\grd_alt.png) repeat-x top; }
     .mGrid .pgr {background: #424242 url(~\Images\grd_pgr.png) repeat-x top; }
     .mGrid .pgr table { margin: 5px 0; }
