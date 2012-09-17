@@ -62,10 +62,22 @@
                     CssClass="mGrid" onrowcommand="gvSession_RowCommand" 
                     onrowdeleting="gvSession_RowDeleting" DataKeyNames="ss_id" 
                     onrowediting="gvSession_RowEditing" 
+<<<<<<< HEAD
                     onrowdatabound="gvSession_RowDataBound" Height="16px" Width="895px" >
                     <Columns>
                         <asp:BoundField DataField="ss_title" HeaderText="Title" />
                         <asp:BoundField DataField="ss_mdtr_name" HeaderText="Moderator" />
+=======
+                    onrowdatabound="gvSession_RowDataBound" Height="203px" Width="895px" >
+                    <Columns>
+                        <asp:BoundField DataField="ss_title" HeaderText="Title" />
+                        <asp:BoundField DataField="ss_mdtr_name" HeaderText="Moderator" />
+                        <asp:TemplateField HeaderText="Paper Submission">
+                            <ItemTemplate>
+                                <%#PaperSubmissionStatus(int.Parse(DataBinder.Eval(Container.DataItem,"ss_prior_paper_subm" ).ToString()))%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+>>>>>>> c4fda4394670306da9f9c0594f25340b18a5842d
                         <asp:BoundField DataField="ss_max_no_atnd" HeaderText="Capacity" />
                         <asp:BoundField DataField="ss_created" HeaderText="Created On" />
                         <asp:BoundField DataField="ss_modified" HeaderText="Modified On" />

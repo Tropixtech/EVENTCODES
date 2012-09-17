@@ -117,7 +117,11 @@ public partial class SessionDetails : System.Web.UI.Page
                 else
                 {
                     lblPRRequired.Visible = true;
+<<<<<<< HEAD
                     lblPRNameAlreadyExist.Visible = false;
+=======
+                    lblPRNameAlreadyExist.Visible = false;/////////////////
+>>>>>>> c4fda4394670306da9f9c0594f25340b18a5842d
                 }
             }
             else

@@ -32,6 +32,7 @@ public partial class Sessions : System.Web.UI.Page
     protected int generateSessionId()
     {
         int id ;
+<<<<<<< HEAD
         db.manipulate("SS_FetchSession", "");
         if (db.ds.Tables[0].Rows.Count == 0)
         {
@@ -46,6 +47,25 @@ public partial class Sessions : System.Web.UI.Page
     }
 
    
+=======
+
+        db.manipulate("SS_GetMaxSSId", "'" + orgId + "','" + eventId + "'");
+
+        if (db.ds.Tables[0].Rows.Count > 0)
+            id = Convert.ToInt16(db.ds.Tables[0].Rows[0]["exp"]);
+        else
+            id = 0;
+        return (id + 1);
+    }
+
+    protected string PaperSubmissionStatus(int flag)
+    {
+        if (flag == 1)
+            return "Yes";
+        else
+            return "No";
+    }
+>>>>>>> c4fda4394670306da9f9c0594f25340b18a5842d
 
     protected void BindSession()
     {
