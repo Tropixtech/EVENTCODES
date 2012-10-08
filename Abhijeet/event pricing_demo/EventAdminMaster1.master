@@ -1,0 +1,205 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="EventAdminMaster1.master.cs" Inherits="EventAdminMaster1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+
+    <link href="css/verticalmenub.css" rel="stylesheet" type="text/css" />
+    <link href="css/evt_mstr1veticalmenua.css" rel="stylesheet" type="text/css" />
+    <link href="EventAdminMaster1.css" rel="stylesheet" type="text/css" />
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+    
+    <style type="text/css">
+        .style3
+        {
+            width: 974px;
+            height: 55px;
+            
+        }
+        .style4
+        {
+            width: 100%;
+        }
+        .style5
+        {
+            width: 200px;
+        }        
+        .style6
+        {
+            width: 1789px;
+            height: 55px;
+            font-size: medium;
+        }
+        .style7
+        {
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+  
+    <div>      
+
+        <div id="templatemo_header_wrapper">
+
+	<div id="templatemo_header">
+    
+   		<div id="site_title">
+            <h1><a href="#" target="_parent">
+            	<img src="Images/tropixmanagement3.png" alt="CSS Templates" />
+                <span>make it happen..</span>
+            </a></h1>
+        </div>
+        
+         <div id="templatemo_menu">
+            <ul>
+                <li><a href="#" class="current">Home</a></li>
+                <li><a href="#" target="_parent">Templates</a></li>
+                <li><a href="#" target="_parent">Flash</a></li>
+                <li><a href="#" target="_parent">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>    	
+        </div> 
+        <div id="templatemo_signout" >
+                   
+            <table style="height: 35px; width: 976px; float:left;">
+                <tr>
+                    <td align="right" class="style6">
+                        <span class="style7">Welcome</span>
+                        <asp:Label ID="Label1" runat="server" style="color: #0066FF" Text="Label"></asp:Label>
+                        &nbsp;<span class="style7">!!!</span>
+                        </td>
+
+                    <td align="right" class="style3"><span>
+                        <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click1">SignOut</asp:LinkButton></span>
+                    </td>
+
+                </tr>
+            </table>
+                   
+        </div>
+    </div> <!-- end of templatemo_header -->
+
+</div> 
+<!-- end of templatemo_header_wrapper -->
+
+<div id="templatemo_content_wrapper">
+
+    <!-- end of content -->
+    <div style="width:920px">
+
+        <table class="style4">
+            <tr>
+                <td class="style5" valign="top">
+                    
+                     <asp:Panel ID="Panels" runat="server" Width="200px">
+   
+    <nav id="navbar">
+		<ul>
+	
+            <asp:ImageButton ID="lbtnHome" runat="server"  onclick="lbtnHome_Click"  
+                ImageUrl="~/Images/verticalmenu2/home_a.png" Width="200px"
+                    onmouseover="this.src='Images/verticalmenu2/home_b.png';"
+                    onmouseout="this.src='Images/verticalmenu2/home_c.png';" Height="40px"></asp:ImageButton>
+
+			<li><asp:ImageButton ID="ImageButton3" 
+                    runat="server" Height="40px" ImageUrl="~/Images/verticalmenu2/event_1.png" Width="200px"
+                    onmouseover="this.src='Images/verticalmenu2/event_2.png';"
+                    onmouseout="this.src='Images/verticalmenu2/event_3.png';">
+                    </asp:ImageButton>
+
+                
+				<ul>
+                    <li><asp:LinkButton ID="lbBesicDetails" runat="server" OnClick="lbBesicDetails_Click">Basic Details</asp:LinkButton></li>
+                    
+                    <li><asp:LinkButton ID="lbSession" runat="server" 
+                onclick="lbSession_Click">Session</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbSchedule" runat="server" 
+                onclick="lbSchedule_Click">Schedule</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbRegParam" runat="server" 
+                onclick="lbRegParam_Click">Registration Parameter</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbCost" runat="server" 
+                onclick="lbCost_Click">Cost</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbAccomodation" runat="server" 
+                onclick="lbAccomodation_Click">Accomdation</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbTours" runat="server" 
+                onclick="lbTours_Click">Tours</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbExhibition" runat="server" 
+                onclick="lbExhibition_Click">Exibition</asp:LinkButton></li>
+
+                    <li><asp:LinkButton ID="lbUserAllocation" runat="server" 
+                onclick="lbUserAllocation_Click">User Allocation</asp:LinkButton></li>
+
+				</ul>
+			</li>
+			
+			<li><asp:ImageButton ID="ImageButton4" 
+                    runat="server" Height="40px" ImageUrl="~/Images/verticalmenu2/14.png" Width="200px"
+                    onmouseover="this.src='Images/verticalmenu2/hvr4.png';"
+                    onmouseout="this.src='Images/verticalmenu2/4a.png';" ></asp:ImageButton>
+				
+			</li>
+			
+			<li><asp:ImageButton ID="ImageButton5" 
+                    runat="server" Height="40px" ImageUrl="~/Images/verticalmenu2/15.png" Width="200px"
+                    onmouseover="this.src='Images/verticalmenu2/hvr5.png';"
+                    onmouseout="this.src='Images/verticalmenu2/5a.png';" ></asp:ImageButton>
+				
+			</li>
+		
+		</ul>
+	</nav>
+   </asp:Panel>
+                   
+                    </td>
+                <td valign="top">
+                    <div style="width:712px; height:auto;">
+                   <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">       
+                
+                    </asp:ContentPlaceHolder>
+                    </div>
+                   </td>
+            </tr>
+        </table>
+
+    </div>
+    <!-- end of sidebar -->
+    
+  	<div class="cleaner"></div>    
+
+</div> 
+<div id="templatemo_content_wrapper_bottom"></div> <!-- end of content_wrapper -->
+
+<div id="templatemo_footer">
+
+   			<ul class="footer_menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#" target="_parent">Templates</a></li>
+                <li><a href="#" target="_parent">Flash</a></li>
+                <li><a href="#" target="_parent">Gallery</a></li>
+                <li class="last_menu"><a href="#">Contact</a></li>
+            </ul>
+            
+            Copyright © 2012.tropix technologies |&nbsp;</div> 
+<!-- end of templatemo_footer -->
+
+  
+    </div>
+
+  
+    </form>
+</body>
+</html>
