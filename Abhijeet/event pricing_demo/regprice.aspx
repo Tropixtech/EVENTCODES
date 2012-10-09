@@ -46,7 +46,26 @@
 //                document.form1.submit();
 //            }
         }
+        function validate3() {
 
+            if (document.getElementById('ContentPlaceHolder1_txtpricetype').value == "") {
+                alert("Price Type cannot be blank");
+                document.getElementById('ContentPlaceHolder1_txtpricetype').focus();
+                return false;
+            }
+
+            if (document.getElementById('ContentPlaceHolder1_txtfrom').value == "") {
+                alert("From Date cannot be blank");
+                document.getElementById('ContentPlaceHolder1_txtfrom').focus();
+                return false;
+            }
+
+            if (document.getElementById('ContentPlaceHolder1_txttodate').value == "") {
+                alert("To Date cannot be blank");
+                document.getElementById('ContentPlaceHolder1_txttodate').focus();
+                return false;
+            }
+        }
 
         function validateAll() {
 
@@ -161,6 +180,8 @@
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtpname" Text='<%# Eval("pp_name")%>' runat="server" 
                                                         Height="25px"></asp:TextBox>
+                                                    &nbsp;<asp:DropDownList ID="ddleditpptype" runat="server">
+                                                    </asp:DropDownList>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="ftrtxtpname" Text='' runat="server" Height="25px"></asp:TextBox>
@@ -237,14 +258,14 @@
                 <td class="style8">
                     &nbsp;</td>
                 <td>
-                    <asp:Button ID="btnsubmit" runat="server" Text="Submit" 
+                    <asp:Button ID="btnsubmit" runat="server" Text="Submit" OnClientClick="return validate3()"
                         style="font-family: Tahoma" onclick="Button1_Click" Height="28px" 
                         Width="100px" />
                     &nbsp;&nbsp;
                     <asp:Button ID="Button2" runat="server" style="font-family: Tahoma" 
                         Text="Cancel" onclick="Button2_Click" Height="28px" Width="100px" />
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="btnupdate" runat="server" Height="25px" onclick="Button3_Click" 
+                    <asp:Button ID="btnupdate" runat="server" Height="25px" onclick="Button3_Click" OnClientClick="return validate3()"
                         Text="Update" Width="100px" />
                 </td>
             </tr>

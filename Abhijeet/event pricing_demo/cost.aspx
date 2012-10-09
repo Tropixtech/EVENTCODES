@@ -165,7 +165,8 @@
                                                 <ItemTemplate> <asp:Label ID="lblppname" Text='<%# Eval("pp_name") %>' runat="server"></asp:Label></ItemTemplate>
                                                 <EditItemTemplate>
                                                     <asp:TextBox ID="txtpname1" Text='<%# Eval("pp_name")%>' runat="server"></asp:TextBox>
-
+                                                    <asp:DropDownList ID="ddleditpptype" runat="server">
+                                                    </asp:DropDownList>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                     <asp:TextBox ID="ftrtxtpname" Text='' runat="server"></asp:TextBox>

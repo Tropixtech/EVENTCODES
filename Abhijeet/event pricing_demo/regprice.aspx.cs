@@ -21,14 +21,14 @@ public partial class regprice : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            ViewState["edit_ptid"] = Session["edit_ptid"];
+            //ViewState["edit_ptid"] = Session["edit_ptid"];
             ViewState["ptid"] = Session["ptid"];
             ViewState["eventid"] = Session["eventid"];
             ViewState["orgid"] = Session["orgid"];
             ViewState["userid"] = Session["userid"];
             ViewState["command"] = Session["command"];
 
-           //ob.manipulate("select * from pricetype where pt_id='" + int.Parse(ViewState["edit_ptid"].ToString()) + "'", "");
+           //ob.manipulate("select * from pricetype where pt_id='" + int.Parse(ViewState["ptid"].ToString()) + "'", "");
            //if (ob.ds.Tables[0].Rows.Count > 0)
            //{
 
@@ -65,15 +65,15 @@ public partial class regprice : System.Web.UI.Page
     }
     public void showeditgrid()
     {
-        ob.manipulate("select * from pricetype where pt_id='" + int.Parse(ViewState["edit_ptid"].ToString()) + "'", "");
+        ob.manipulate("select * from pricetype where pt_id='" + int.Parse(ViewState["ptid"].ToString()) + "'", "");
         if (ob.ds.Tables[0].Rows.Count > 0)
         {
 
             txtpricetype.Text = ob.ds.Tables[0].Rows[0]["pt_name"].ToString();
             txtfrom.Text = ob.ds.Tables[0].Rows[0]["pt_from_date"].ToString();
             txttodate.Text = ob.ds.Tables[0].Rows[0]["pt_to_date"].ToString();
-            //ob.manipulate("select * from participanttype INNER JOIN registrationcost ON participanttype.pp_pt_id=registrationcost.pt_id where participanttype.pp_pt_id='" + int.Parse(ViewState["edit_ptid"].ToString()) + "'", "");
-            ob.manipulate("sp_p_fetch_parti_regco", "'" + int.Parse(ViewState["edit_ptid"].ToString()) + "'");
+            //ob.manipulate("select * from participanttype INNER JOIN registrationcost ON participanttype.pp_pt_id=registrationcost.pt_id where participanttype.pp_pt_id='" + int.Parse(ViewState["ptid"].ToString()) + "'", "");
+            ob.manipulate("sp_p_fetch_parti_regco", "'" + int.Parse(ViewState["ptid"].ToString()) + "'");
             GridView1.DataSource = ob.ds;
             GridView1.DataBind();
         }
@@ -111,6 +111,57 @@ public partial class regprice : System.Web.UI.Page
     string arr = "";
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        if (e.Row.RowType == DataControlRowType.DataRow && GridView1.EditIndex == -1)
+        {
+            GridView1.ShowFooter = true;
+        }
+        if (e.Row.RowType == DataControlRowType.Footer && GridView1.EditIndex > -1)
+        {
+            GridView1.ShowFooter = false;
+
+        }
+        if (e.Row.RowType == DataControlRowType.DataRow && GridView1.EditIndex == e.Row.RowIndex)
+        {
+
+            //Label lbl = (Label)e.Row.FindControl("lblppid");
+            //lbl.Visible = false;
+            TextBox txtedit = (TextBox)e.Row.FindControl("txtpname");
+            DropDownList ddledit = (DropDownList)e.Row.FindControl("ddleditpptype");
+            //ddledit.Visible = false;
+            ob.manipulate("sp_p_fetch_ptid", "");
+            if (ob.ds.Tables[0].Rows.Count > 1)
+            {
+
+                ob.manipulate("sp_p_fetch_distinct_ppname", "'" + int.Parse(ViewState["eventid"].ToString()) + "','" + int.Parse(ViewState["orgid"].ToString()) + "'");
+                if (ob.ds.Tables[0].Rows.Count > 0)
+                {
+                    txtedit.Visible = false;
+                    ddledit.Visible = true;
+                    while (cnt < ob.ds.Tables[0].Rows.Count)
+                    {
+                        arr = ob.ds.Tables[0].Rows[cnt]["pp_name"].ToString();
+                        cnt++;
+                        ddledit.Items.Add(new ListItem(arr));
+
+                    }
+                }
+                else
+                {
+                    ddledit.Visible = false;
+                }
+            }
+            else
+            {
+                txtedit.Visible = true;
+                ddledit.Visible = false;
+            }
+       
+        }
+
+
+
+
+
         ob.manipulate("sp_p_fetch_ptid", "");
         //int ptid = int.Parse(ob.ds.Tables[0].Rows[0]["pt_id"].ToString());
         if (ob.ds.Tables[0].Rows.Count > 1)
@@ -357,29 +408,79 @@ public partial class regprice : System.Web.UI.Page
             string strgrp = ((TextBox)GridView1.Rows[e.RowIndex].FindControl("txtgrp")).Text;
             string strguest = ((TextBox)GridView1.Rows[e.RowIndex].FindControl("txtguest")).Text;
             var frmdt = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss ");
-
+            DropDownList ddledit = (DropDownList)GridView1.Rows[e.RowIndex].FindControl("ddleditpptype");
             //Prepare the Update Command of the DataSource control
-          
 
-            ob.manipulate("sp_p_update_parti", "'"+strpname+"','"+frmdt+"','"+int.Parse(ViewState["userid"].ToString())+"','"+int.Parse(strparid)+"'");
-
-            ob.manipulate("sp_p_update_regcost", "'"+float.Parse(strindi)+"','"+float.Parse(strgrp)+"','"+float.Parse(strguest)+"','"+int.Parse(strparid)+"'");   
-        
-        
-            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
-
-            //Reset Edit Index
-            GridView1.EditIndex = -1;
-
-            if (Session["command"] != null && Session["command"].Equals("EditSession"))
+            if (ddledit.Items.Count == 0)
             {
-                showeditgrid();
+                ob.manipulate("select pp_name from participanttype where pp_id='" + int.Parse(strparid) + "'", "");
+                string ppname = ob.ds.Tables[0].Rows[0]["pp_name"].ToString();
+                if (ob.ds.Tables[0].Rows.Count > 0 && ppname != strpname)
+                {
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type Already Exist For This Price Type');</script>");
+
+                }
+                else
+                {
+                    ob.manipulate("sp_p_update_parti", "'" + strpname + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(strparid) + "'");
+
+                    ob.manipulate("sp_p_update_regcost", "'" + float.Parse(strindi) + "','" + float.Parse(strgrp) + "','" + float.Parse(strguest) + "','" + int.Parse(strparid) + "'");
+
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
+
+                    //Reset Edit Index
+                    GridView1.EditIndex = -1;
+
+                    if (Session["command"] != null && Session["command"].Equals("EditSession"))
+                    {
+                        showeditgrid();
+                    }
+                    else
+                    {
+                        showgrid();
+                    }
+                }
             }
             else
             {
-                showgrid();
+                ob.manipulate("select pp_name from participanttype where pp_id='" + int.Parse(strparid) + "'", "");
+                //string ppnme = ob.ds.Tables[0].Rows[0]["pp_name"].ToString();'" + int.Parse(ViewState["ptid"].ToString()) + "'
+                //ob.manipulate("select pp_name from participanttype where pp_name='"+ddledit.SelectedValue+"'and pp_id='" + int.Parse(strparid) + "' and pp_pt_id='" + int.Parse(ViewState["ptid"].ToString()) + "'", "");
+                //ob.manipulate("sp_p_fetch_ppname", "'" + int.Parse(strparid) + "'");
+                string ppname = ob.ds.Tables[0].Rows[0]["pp_name"].ToString();
+                if (ob.ds.Tables[0].Rows.Count > 0 &&  ppname!=ddledit.SelectedValue)
+                {
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type Already Exist For This Price Type');</script>");
+
+                }
+
+                else
+                {
+
+                    ob.manipulate("sp_p_update_parti", "'" + ddledit.SelectedValue + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(strparid) + "'");
+
+                    ob.manipulate("sp_p_update_regcost", "'" + float.Parse(strindi) + "','" + float.Parse(strgrp) + "','" + float.Parse(strguest) + "','" + int.Parse(strparid) + "'");
+
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
+
+                    //Reset Edit Index
+                    GridView1.EditIndex = -1;
+
+                    if (Session["command"] != null && Session["command"].Equals("EditSession"))
+                    {
+                        showeditgrid();
+                    }
+                    else
+                    {
+                        showgrid();
+                    }
+                }
             }
-            //showgrid();
+            
         }
        
     
@@ -409,10 +510,10 @@ public partial class regprice : System.Web.UI.Page
     protected void Button3_Click(object sender, EventArgs e)
     {
         TextBox txt = (TextBox)GridView1.FooterRow.FindControl("ftrtxtindvl");
-        ob.manipulate("sp_p_fetch_rcppid", "'" + int.Parse(ViewState["edit_ptid"].ToString()) + "'");
+        ob.manipulate("sp_p_fetch_rcppid", "'" + int.Parse(ViewState["ptid"].ToString()) + "'");
         if (ob.ds.Tables[0].Rows.Count > 0)
         {
-            ob.manipulate("select pt_name from pricetype where pt_id='"+int.Parse(ViewState["edit_ptid"].ToString())+"'","");
+            ob.manipulate("select pt_name from pricetype where pt_id='"+int.Parse(ViewState["ptid"].ToString())+"'","");
             string ppname = ob.ds.Tables[0].Rows[0]["pt_name"].ToString();
             ob.manipulate("sp_p_fetch_ptname", "'" + txtpricetype.Text + "','" + int.Parse(ViewState["orgid"].ToString()) + "','" + int.Parse(ViewState["eventid"].ToString()) + "'");
             string ppnme=ob.ds.Tables[0].Rows[0]["pt_name"].ToString();
@@ -425,7 +526,7 @@ public partial class regprice : System.Web.UI.Page
                 var frmdt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
 
-                ob.manipulate("sp_p_update_insert_pricetype", "'" + int.Parse(ViewState["eventid"].ToString()) + "','" + int.Parse(ViewState["orgid"].ToString()) + "','" + txtpricetype.Text + "','" + txtfrom.Text + "','" + txttodate.Text + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(ViewState["edit_ptid"].ToString()) + "'");
+                ob.manipulate("sp_p_update_insert_pricetype", "'" + int.Parse(ViewState["eventid"].ToString()) + "','" + int.Parse(ViewState["orgid"].ToString()) + "','" + txtpricetype.Text + "','" + txtfrom.Text + "','" + txttodate.Text + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(ViewState["ptid"].ToString()) + "'");
 
 
 

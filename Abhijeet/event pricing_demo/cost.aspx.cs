@@ -127,7 +127,7 @@ public partial class cost : System.Web.UI.Page
             int strpt_id = Convert.ToInt16(e.CommandArgument.ToString());
 
            
-            Session["edit_ptid"] = strpt_id;
+            Session["ptid"] = strpt_id;
             Session["command"] = "EditSession";
              Session["eventid"]=ViewState["eventid"];
              Session["orgid"]=ViewState["orgid"];
@@ -405,66 +405,109 @@ public partial class cost : System.Web.UI.Page
     }
     protected void GridView1_RowDataBound1(object sender, GridViewRowEventArgs e)
     {
+        GridView gvTemp = (GridView)sender;
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             if (((DataRowView)e.Row.DataItem)["pp_id"].ToString() == String.Empty) e.Row.Visible = false;
         }
-        ob.manipulate("sp_p_fetch_ptid", "");
-        int ptid = int.Parse(ob.ds.Tables[0].Rows[0]["pt_id"].ToString());
-        
-        if (ob.ds.Tables[0].Rows.Count > 1 )
+
+
+      if (e.Row.RowType == DataControlRowType.DataRow && gvTemp.EditIndex == e.Row.RowIndex)
+        //if (e.Row.RowType == DataControlRowType.DataRow && gvTemp.EditIndex > -1)
         {
-            if (e.Row.RowType == DataControlRowType.Footer && GridView1.EditIndex == -1)
+
+            int cnt = 0;
+            string arr = "";
+            TextBox txtedit = (TextBox)e.Row.FindControl("txtpname1");
+            DropDownList ddledit = (DropDownList)e.Row.FindControl("ddleditpptype");
+           
+            ob.manipulate("sp_p_fetch_ptid", "");
+            if (ob.ds.Tables[0].Rows.Count > 1)
             {
-                int cnt = 0;
-                string arr = "";
 
-                TextBox txt = (TextBox)e.Row.FindControl("ftrtxtpname");
-                DropDownList ddl = (DropDownList)e.Row.FindControl("ddlpname");
-
-
-                
                 ob.manipulate("sp_p_fetch_distinct_ppname", "'" + int.Parse(ViewState["eventid"].ToString()) + "','" + int.Parse(ViewState["orgid"].ToString()) + "'");
                 if (ob.ds.Tables[0].Rows.Count > 0)
                 {
-                    //ob.manipulate("select pt_id from pricetype", "");
-                    //if (ptid == int.Parse(ob.ds.Tables[0].Rows[0]["pt_id"].ToString()))
-                    //{
-                    //    txt.Visible = true;
-                    //    ddl.Visible = false;
-                    //}
-                    //else
-                    //{
-                        txt.Visible = false;
-                        ddl.Visible = true;
-                        while (cnt < ob.ds.Tables[0].Rows.Count)
-                        {
-                            arr = ob.ds.Tables[0].Rows[cnt]["pp_name"].ToString();
-                            cnt++;
-                            ddl.Items.Add(new ListItem(arr));
+                    txtedit.Visible = false;
+                    ddledit.Visible = true;
+                    while (cnt < ob.ds.Tables[0].Rows.Count)
+                    {
+                        arr = ob.ds.Tables[0].Rows[cnt]["pp_name"].ToString();
+                        cnt++;
+                        ddledit.Items.Add(new ListItem(arr));
 
-                        }
-                    //}
-
+                    }
                 }
                 else
                 {
-                    ddl.Visible = false;
+                    ddledit.Visible = false;
                 }
-
             }
-        }
-        else
-        {
-            if (e.Row.RowType == DataControlRowType.Footer && GridView1.EditIndex == -1)
+            else
             {
-                TextBox txt = (TextBox)e.Row.FindControl("ftrtxtpname");
-                DropDownList ddl = (DropDownList)e.Row.FindControl("ddlpname");
-
-                txt.Visible = true;
-                ddl.Visible = false;
+                txtedit.Visible = true;
+                ddledit.Visible = false;
             }
+
         }
+
+
+        //ob.manipulate("sp_p_fetch_ptid", "");
+        //int ptid = int.Parse(ob.ds.Tables[0].Rows[0]["pt_id"].ToString());
+        
+        //if (ob.ds.Tables[0].Rows.Count > 1 )
+        //{
+        //    if (e.Row.RowType == DataControlRowType.Footer && GridView1.EditIndex == -1)
+        //    {
+        //        int cnt = 0;
+        //        string arr = "";
+
+        //        TextBox txt = (TextBox)e.Row.FindControl("ftrtxtpname");
+        //        DropDownList ddl = (DropDownList)e.Row.FindControl("ddlpname");
+
+
+                
+        //        ob.manipulate("sp_p_fetch_distinct_ppname", "'" + int.Parse(ViewState["eventid"].ToString()) + "','" + int.Parse(ViewState["orgid"].ToString()) + "'");
+        //        if (ob.ds.Tables[0].Rows.Count > 0)
+        //        {
+        //            //ob.manipulate("select pt_id from pricetype", "");
+        //            //if (ptid == int.Parse(ob.ds.Tables[0].Rows[0]["pt_id"].ToString()))
+        //            //{
+        //            //    txt.Visible = true;
+        //            //    ddl.Visible = false;
+        //            //}
+        //            //else
+        //            //{
+        //                txt.Visible = false;
+        //                ddl.Visible = true;
+        //                while (cnt < ob.ds.Tables[0].Rows.Count)
+        //                {
+        //                    arr = ob.ds.Tables[0].Rows[cnt]["pp_name"].ToString();
+        //                    cnt++;
+        //                    ddl.Items.Add(new ListItem(arr));
+
+        //                }
+        //            //}
+
+        //        }
+        //        else
+        //        {
+        //            ddl.Visible = false;
+        //        }
+
+        //    }
+        //}
+        //else
+        //{
+        //    if (e.Row.RowType == DataControlRowType.Footer && GridView1.EditIndex == -1)
+        //    {
+        //        TextBox txt = (TextBox)e.Row.FindControl("ftrtxtpname");
+        //        DropDownList ddl = (DropDownList)e.Row.FindControl("ddlpname");
+
+        //        txt.Visible = true;
+        //        ddl.Visible = false;
+        //    }
+        //}
 
     }
     protected void GridView1_RowDeleting1(object sender, GridViewDeleteEventArgs e)
@@ -512,19 +555,60 @@ public partial class cost : System.Web.UI.Page
         string strgrp = ((TextBox)gvTemp.Rows[e.RowIndex].FindControl("txtgrp1")).Text;
         string strguest = ((TextBox)gvTemp.Rows[e.RowIndex].FindControl("txtguest1")).Text;
         string frmdt = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
+        DropDownList ddledit = (DropDownList)gvTemp.Rows[e.RowIndex].FindControl("ddleditpptype");
 
 
-        ob.manipulate("sp_p_update_parti", "'" + strpname + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(strparid) + "'");
+        if (ddledit.Items.Count == 0)
+        {
+            ob.manipulate("select pp_name from participanttype where pp_id='" + int.Parse(strparid) + "'", "");
+            string ppname = ob.ds.Tables[0].Rows[0]["pp_name"].ToString();
+            if (ob.ds.Tables[0].Rows.Count > 0 && ppname != strpname)
+            {
 
-        ob.manipulate("sp_p_update_regcost", "'" + float.Parse(strindi) + "','" + float.Parse(strgrp) + "','" + float.Parse(strguest) + "','" + int.Parse(strparid) + "'");   
-        
-        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
+                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type Already Exist For This Price Type');</script>");
 
-        //Reset Edit Index
-        gvTemp.EditIndex = -1;
+            }
+            else
+            {
+                ob.manipulate("sp_p_update_parti", "'" + strpname + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(strparid) + "'");
+
+                ob.manipulate("sp_p_update_regcost", "'" + float.Parse(strindi) + "','" + float.Parse(strgrp) + "','" + float.Parse(strguest) + "','" + int.Parse(strparid) + "'");
+
+                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
+
+                //Reset Edit Index
+                gvTemp.EditIndex = -1;
 
 
-        showgrid();
+                showgrid();
+            }
+        }
+        else
+        {
+            ob.manipulate("select pp_name from participanttype where pp_id='" + int.Parse(strparid) + "'", "");
+             string ppname = ob.ds.Tables[0].Rows[0]["pp_name"].ToString();
+                if (ob.ds.Tables[0].Rows.Count > 0 &&  ppname!=ddledit.SelectedValue)
+                {
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type Already Exist For This Price Type');</script>");
+
+                }
+
+                else
+                {
+                    ob.manipulate("sp_p_update_parti", "'" + strpname + "','" + frmdt + "','" + int.Parse(ViewState["userid"].ToString()) + "','" + int.Parse(strparid) + "'");
+
+                    ob.manipulate("sp_p_update_regcost", "'" + float.Parse(strindi) + "','" + float.Parse(strgrp) + "','" + float.Parse(strguest) + "','" + int.Parse(strparid) + "'");
+
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Participant Type and Registration Cost updated successfully');</script>");
+
+                    //Reset Edit Index
+                    gvTemp.EditIndex = -1;
+
+
+                    showgrid();
+                }
+        }
     }
 
     protected void GridView1_RowCancelingEdit1(object sender, GridViewEditEventArgs e)
